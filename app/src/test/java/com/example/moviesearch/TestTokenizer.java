@@ -19,11 +19,11 @@ public class TestTokenizer {
     }
 
     @Test(timeout=1000)
-    public void testMovToken() {
-        tokenizer = new Tokenizer("2005");
+    public void testGenreFieldToken() {
+        tokenizer = new Tokenizer("\"genre\"");
 
-        assertEquals("wrong token type", Token.Type.YEAR, tokenizer.current().type());
-        assertEquals("wrong token value", "2005", tokenizer.current().token());
+        assertEquals("wrong token type", Token.Type.GENRE_FIELD, tokenizer.current().type());
+        assertEquals("wrong token value", "\"genre\"", tokenizer.current().token());
     }
 
     @Test(timeout=1000)
@@ -44,7 +44,7 @@ public class TestTokenizer {
 
     @Test(timeout=1000)
     public void testTokenPartialQuery(){
-        tokenizer = new Tokenizer("\"movie\": happy");
+        tokenizer = new Tokenizer("\"movie\": happy sunrise");
 
         assertEquals("wrong token type", Token.Type.MOVIE_FIELD, tokenizer.current().type());
         assertEquals("wrong token value", "\"movie\"", tokenizer.current().token());
@@ -57,7 +57,7 @@ public class TestTokenizer {
         tokenizer.next(); // accessing the third token
 
         assertEquals("wrong token type", Token.Type.MOVIE_NAME, tokenizer.current().type());
-        assertEquals("wrong token value", "happy", tokenizer.current().token());
+        assertEquals("wrong token value", "happy sunrise", tokenizer.current().token());
     }
 
     @Test(timeout=1000)

@@ -53,7 +53,8 @@ public class Tokenizer {
         {
             String string = "";
             int pos = savedText.indexOf(firstChar), end = pos + 1;
-            while(end < savedText.length() && Character.isLetter(savedText.charAt(end)))
+            while(end < savedText.length() && (Character.isLetter(savedText.charAt(end)) ||
+                    (savedText.charAt(end) == ' ' && Character.isLetter(savedText.charAt(end + 1)))))
                 end++;
             string += savedText.substring(pos, end);
             if(currentToken.type() == Token.Type.COL_MOVIE)
