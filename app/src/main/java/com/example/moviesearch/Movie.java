@@ -1,50 +1,112 @@
 package com.example.moviesearch;
 
 public class Movie {
-    private String name;
-    private int year;
-    private String genre;
-    private int id;
+    String country, director, genre, name, rating, star, writer;
+    int runtime, year, price;
+    double score;
+    public Movie(){
 
-    public Movie() {
     }
 
-    public Movie(String name, int year, String genre, int id) {
-        this.name = name;
-        this.year = year;
+    public Movie(String country, String director, String genre, String name, String rating, int runtime, double score, String star, String writer, int year, int price) {
+        this.country = country;
+        this.director = director;
         this.genre = genre;
-        this.id = id;
-    }
-
-    public void setName(String name) {
         this.name = name;
+        this.rating = rating;
+        this.runtime = runtime;
+        this.score = score;
+        this.star = star;
+        this.writer = writer;
+        this.year = year;
+        this.price = price;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public String getGenre() {
+        return genre;
     }
 
     public void setGenre(String genre) {
         this.genre = genre;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public int getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(int runtime) {
+        this.runtime = runtime;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
+
+    public String getStar() {
+        return star;
+    }
+
+    public void setStar(String star) {
+        this.star = star;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getWriter() {
+        return writer;
+    }
+
+    public void setWriter(String writer) {
+        this.writer = writer;
     }
 
     public int getYear() {
         return year;
     }
 
-    public String getGenre() {
-        return genre;
+    public void setYear(int year) {
+        this.year = year;
     }
 }
