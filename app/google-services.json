@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "886015992120",
+    "firebase_url": "https://rent-a-movie-9bb49.firebaseio.com",
+    "project_id": "rent-a-movie-9bb49",
+    "storage_bucket": "rent-a-movie-9bb49.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:886015992120:android:29f5138c624bfb6bfb61cd",
+        "android_client_info": {
+          "package_name": "com.example.moviesearch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "886015992120-24399o4nnnpqh2b4e0qj644ocig1ql5s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClkZ3r9znVS_DRjTqjsuVY8-kL4JzL3bY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "886015992120-24399o4nnnpqh2b4e0qj644ocig1ql5s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
