@@ -53,7 +53,6 @@ public class RBTree<T extends Comparable<T>> {
 	 * @param x Node<T> The new node being inserted into the tree.
 	 */
 	private void insert(Node<T> x) {
-		// TODO: Complete this function
 		// You need to finish cases 1, 2 and 3; the rest has been done for you
 
 		// Insert node into tree
@@ -71,7 +70,6 @@ public class RBTree<T extends Comparable<T>> {
 
 			if (uncle.colour == Colour.RED) {
 				// Case 1: Recolour
-				// TODO: Implement this part
 				// ########## YOUR CODE STARTS HERE ##########
 				x.parent.colour = Colour.BLACK;
 				uncle.colour = Colour.BLACK;
@@ -93,7 +91,6 @@ public class RBTree<T extends Comparable<T>> {
 					} else {
 						// This is part of the "then" clause where left and right are swapped
 						// Perform right rotation
-						// TODO: Implement this part
 						// ########## YOUR CODE STARTS HERE ##########
 						if(x.movie.getId() == root.movie.getId())
 							root = x.left;
@@ -106,7 +103,7 @@ public class RBTree<T extends Comparable<T>> {
 				x.parent.parent.colour = Colour.RED;
 
 				// Case 3 : Right Rotation, uncle is right node, x is on the left / Left Rotation, uncle is left node, x is on the right
-				// TODO: Complete this part
+
 				if (left) {
 					// Perform right rotation
 					// ########## YOUR CODE STARTS HERE ##########
@@ -175,7 +172,6 @@ public class RBTree<T extends Comparable<T>> {
                                           e   f
     */
 	public void rotateRight(Node<T> x) {
-		// TODO: Implement this function
 		// HINT: It is the mirrored version of rotateLeft()
 		// ########## YOUR CODE STARTS HERE ##########
 		// Make parent (if it exists) and right branch point to each other

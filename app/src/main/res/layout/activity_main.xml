@@ -86,4 +86,41 @@
         app:layout_constraintTop_toTopOf="@+id/queryText"
         app:layout_constraintVertical_bias="1.0" />
 
+    <Button
+        android:id="@+id/buttonSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginLeft="84dp"
+        android:layout_marginTop="60dp"
+        android:background="#434345"
+        android:fontFamily="@font/spacegrotesk_semibold"
+        android:text="SIGN UP"
+        android:textColor="@android:color/white"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonSignIn"
+        app:layout_constraintHorizontal_bias="0.029"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/queryText"
+        app:layout_constraintVertical_bias="0.008" />
+
+    <Button
+        android:id="@+id/buttonSignIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="84dp"
+        android:layout_marginRight="84dp"
+        android:background="#434345"
+        android:fontFamily="@font/spacegrotesk_semibold"
+        android:text="SIGN IN"
+        android:textColor="@android:color/white"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.668"
+        app:layout_constraintStart_toEndOf="@+id/buttonSignUp"
+        app:layout_constraintTop_toBottomOf="@+id/button2"
+        app:layout_constraintVertical_bias="0.337" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
