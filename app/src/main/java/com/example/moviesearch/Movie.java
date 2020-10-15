@@ -2,7 +2,7 @@ package com.example.moviesearch;
 
 public class Movie {
     String country, director, genre, name, rating, star, writer;
-    int runtime, year, price;
+    int runtime, year, price, id;
     double score;
     public Movie(){
 
@@ -21,6 +21,8 @@ public class Movie {
         this.year = year;
         this.price = price;
     }
+
+    public int getId() { return id; }
 
     public String getCountry() {
         return country;
