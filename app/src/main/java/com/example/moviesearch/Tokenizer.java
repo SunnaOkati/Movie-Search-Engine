@@ -5,8 +5,8 @@ package com.example.moviesearch;/* code by Maitreyi Singh<u7075106>
 
 public class Tokenizer {
 
-    private String savedText;		//save text
-    private Token currentToken;	 //saves token extracted from next()
+    private String savedText;  // save text
+    private Token currentToken;	 // saves token extracted from next()
 
     /**
      *  The constructor extracts the first token and saves it to the currentToken.

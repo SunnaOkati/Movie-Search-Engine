@@ -119,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
 
                 if(tokens[1].charAt(0) == editTextquery.getText().toString().charAt(0)){
                     //Read the data
-                    Movie movie = new Movie(tokens[1], Integer.parseInt(tokens[2]), tokens[3], Integer.parseInt(tokens[0]));
-                    movies.add(movie);
+                    //Movie movie = new Movie(tokens[1], Integer.parseInt(tokens[2]), tokens[3], Integer.parseInt(tokens[0]));
+                    //movies.add(movie);
                 }
             }
         } catch (IOException e) {
