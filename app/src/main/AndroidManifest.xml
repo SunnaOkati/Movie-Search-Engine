@@ -14,7 +14,7 @@
         <activity android:name=".login"></activity>
         <activity android:name=".register" />
         <activity android:name=".Trailer" />
-
+        <activity android:name=".QueryResults" />
         <activity android:name=".MovieList" />
         <activity android:name=".MainActivity">
             <intent-filter>

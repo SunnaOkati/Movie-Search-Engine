@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,14 +68,22 @@ public class MainActivity extends AppCompatActivity {
                 if (editTextquery.getText().toString().isEmpty())
                     Toast.makeText(getApplicationContext(),"Please enter a query", Toast.LENGTH_SHORT).show();
                 else {
-                //TODO: Ashok please edit
-                readMovieData();
-                RBTree tree = new RBTree();
+                    readMovieData();
+                    if(movies.isEmpty())
+                        Toast.makeText(getApplicationContext(),"No match found", Toast.LENGTH_SHORT).show();
+                    else {
+                        //TODO: Ashok please edit
 
-                for (Movie m: movies){
-                    tree.insert(m);
-                }
-                //Log.d("My activity", tree.preOrder());
+                        RBTree tree = new RBTree();
+
+                        for (Movie m: movies){
+                            tree.insert(m);
+                            System.out.println(m);
+                        }
+                        Intent inQR = new Intent(MainActivity.this, QueryResults.class);
+                        startActivity(inQR);
+                        Log.d("My activity", tree.preOrder());
+                    }
                 }
             }
         });
