@@ -1,14 +1,29 @@
 package com.example.moviesearch;
 
-public class Movie {
-    String country, director, genre, name, rating, star, writer;
+public class Movie{
+    String country;
+    String director;
+    String genre;
+    String name;
+    String rating;
+    String star;
+    String writer;
+    String ID;
     int runtime, year, price;
     double score;
+
     public Movie(){
 
     }
 
-    public Movie(String country, String director, String genre, String name, String rating, int runtime, double score, String star, String writer, int year, int price) {
+    public Movie(String ID, String name, String genre, int year){
+        this.ID = ID;
+        this.name = name;
+        this.genre = genre;
+        this.year = year;
+    }
+    public Movie(String ID, String country, String director, String genre, String name, String rating, int runtime, double score, String star, String writer, int year, int price) {
+        this.ID = ID;
         this.country = country;
         this.director = director;
         this.genre = genre;
@@ -22,6 +37,13 @@ public class Movie {
         this.price = price;
     }
 
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
     public String getCountry() {
         return country;
     }
@@ -113,10 +135,10 @@ public class Movie {
     @Override
     public String toString() {
         return "Movie{" +
-                "name='" + name + '\'' +
+                "genre='" + genre + '\'' +
+                ", name='" + name + '\'' +
+                ", ID='" + ID + '\'' +
                 ", year=" + year +
-                ", genre='" + genre + '\'' +
-                ", id=" + id +
                 '}';
     }
 }

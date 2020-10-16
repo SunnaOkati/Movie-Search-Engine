@@ -4,6 +4,7 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.moviesearch.Tree.Soundex;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -16,8 +17,9 @@ import java.util.List;
 import java.util.Random;
 
 public class createDataset {
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public static void main(String[] args) {
+    public static void create() {
         List<Movie> movieList = new ArrayList<>();
         String line = "";
         String splitBy = ",";
@@ -36,7 +38,7 @@ public class createDataset {
                     int year = Integer.parseInt(tokens[9]);
                     double score = Double.parseDouble(tokens[6]);
                     int price = rand.nextInt(2000) + 500;
-                    movieList.add(new Movie(tokens[0], tokens[1], tokens[2], name, tokens[4], runtime, score, tokens[7], tokens[8], year, price));
+                    movieList.add(new Movie(Soundex.encode(tokens[3]),tokens[0], tokens[1], tokens[2], name, tokens[4], runtime, score, tokens[7], tokens[8], year, price));
                     count++;
                 }
             }
@@ -49,4 +51,5 @@ public class createDataset {
             e.printStackTrace();
         }
     }
+
 }
