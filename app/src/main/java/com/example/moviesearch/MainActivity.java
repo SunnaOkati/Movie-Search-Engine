@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private static Tokenizer tokenizer;
     private static Parser parser;
+    private TextView helpText;
 
     int count = 0;
     @Override
@@ -57,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
        btnSignIn = findViewById(R.id.buttonSignIn);
        btnSearch = findViewById(R.id.buttonSearch);
        editTextquery = findViewById(R.id.queryText);
+       helpText=findViewById(R.id.helpScr);
 
         // sets the image for the logo from the assets.
         try{
@@ -74,6 +78,16 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        helpText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent inHelper = new Intent(MainActivity.this, helper.class);
+
+                startActivity(inHelper);
+
+            }
+        });
         //verifies if the user is already signed in
         mFirebaseAuth = FirebaseAuth.getInstance();
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
