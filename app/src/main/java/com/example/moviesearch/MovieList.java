@@ -37,15 +37,7 @@ public class MovieList extends AppCompatActivity {
             ex.printStackTrace();
         }
 
-        TrButton=findViewById(R.id.videoTrailer);
-        TrButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent in=new Intent(getApplicationContext(),Trailer.class);
-                startActivity(in);
 
-            }
-        });
 
     }
 
