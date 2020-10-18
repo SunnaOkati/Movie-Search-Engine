@@ -4,7 +4,7 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import com.example.moviesearch.Tree.Soundex;
+import com.example.moviesearch.Utils.Soundex;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

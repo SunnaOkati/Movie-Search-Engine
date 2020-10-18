@@ -1,4 +1,4 @@
-package com.example.moviesearch.Tree;
+package com.example.moviesearch.Utils;
 
 public class Soundex {
     //Soundex encoding

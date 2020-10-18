@@ -1,6 +1,12 @@
 package com.example.moviesearch.BinaryTree;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import com.example.moviesearch.Movie;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * NonEmptyBinaryTree - this is a binary search tree that is either an inner node
@@ -12,7 +18,7 @@ import com.example.moviesearch.Movie;
  * @author Eric McCreath - GPLv2
  * @author Huy Pham - Modified to remove unused methods for the purpose of the lab exercise.
  * @author dongwookim - add javadocs
- * @auhtor Ranjth -
+ * @auhtor Ranjth - added parent variable for reverse traversal
  */
 
 
@@ -20,17 +26,18 @@ public class NonEmptyBinaryTree extends BinaryTree {
 
 	Movie movie;		// movie class instance representing a movie
 	BinaryTree left, right;	// left and right sub-trees
-	
+	NonEmptyBinaryTree parent;
 	/**
 	 * Create a NonEmptyBinaryTree tree with root node.
 	 * The tree will not have sub-trees.
 	 * 
 	 * @param movie movie represented by the root node.
 	 */
-	public NonEmptyBinaryTree(Movie movie) {
+	public NonEmptyBinaryTree(Movie movie, NonEmptyBinaryTree parent) {
 		this.movie = movie;
 		left = new EmptyBinaryTree();
 		right = new EmptyBinaryTree();
+		this.parent = parent;
 	}
 
 	/** 
@@ -59,16 +66,16 @@ public class NonEmptyBinaryTree extends BinaryTree {
 	 */
 	public BinaryTree insert(Movie newMovie) {
 
-		if(newMovie.getID().compareTo(movie.getID()) < 1){
+		if(newMovie.getID().compareTo(movie.getID()) < 0){
 			if(left.isEmpty()){
-				left = new NonEmptyBinaryTree(newMovie);
+				left = new NonEmptyBinaryTree(newMovie, this);
 				return this;
 			}
-			left = left.insert(movie);
+			left = left.insert(newMovie);
 		}
-		else if(newMovie.getID().compareTo(movie.getID()) >= 1){
+		else if(newMovie.getID().compareTo(movie.getID()) > 0){
 			if(right.isEmpty()){
-				right = new NonEmptyBinaryTree(newMovie);
+				right = new NonEmptyBinaryTree(newMovie, this);
 				return this;
 			}
 			right = right.insert(newMovie);
@@ -154,13 +161,38 @@ public class NonEmptyBinaryTree extends BinaryTree {
 		return res;
 	}
 
+
+	public List<Movie> relavantResults(){
+		List<Movie> path = new ArrayList<Movie>();
+		NonEmptyBinaryTree tree = this;
+		path.add(tree.movie);
+
+		//Log.d("Search activity", "Parent: " + tree.movie.toString());
+		while (tree.parent != null ){
+			Log.d("Search activity", "Movie added: " + tree.parent.movie.toString());
+			path.add(tree.parent.movie);
+			if(tree.parent.left == tree && !tree.parent.right.isEmpty()){
+				path.add(((NonEmptyBinaryTree)tree.parent.right).movie);
+			}
+			else if (tree.parent.right == tree && !tree.parent.left.isEmpty()){
+				path.add(((NonEmptyBinaryTree)tree.parent.left).movie);
+			}
+			tree = tree.parent;
+		}
+		return path;
+	}
+
 	/**
 	 * Find whether a specific data is in the tree or not.
+	 * if not present, send the leaf node it reaches
+	 * @param d
+	 * @return Leaf node most relevant to d based on ID
 	 */
 	@Override
-	public boolean find(Movie d) {
-		if (movie.getID() == d.getID()) return true;
-		else if (d.getID().compareTo(movie.getID()) < 0) return left.find(d);
-		else return right.find(d);
+	public BinaryTree find(Movie d) {
+
+		if (d.getID().compareTo(movie.getID()) < 0 && !left.isEmpty()) return left.find(d);
+		else if (d.getID().compareTo(movie.getID()) > 0 && !right.isEmpty()) return right.find(d);
+		else return this;
 	}
 }

@@ -31,5 +31,5 @@ public abstract class BinaryTree  {
 	
 	//public abstract Movie smallest(); // find the smallest element in the tree
 	
-	public abstract boolean find(Movie movie); // check if the element is in the tree
+	public abstract BinaryTree find(Movie movie); // check if the element is in the tree
 }

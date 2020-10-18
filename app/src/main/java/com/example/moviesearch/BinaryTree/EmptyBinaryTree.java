@@ -20,7 +20,7 @@ public class EmptyBinaryTree extends BinaryTree {
 	}
 
 	public BinaryTree insert(Movie movie) {
-		return new NonEmptyBinaryTree(movie);
+		return new NonEmptyBinaryTree(movie, null);
 	}
 
 	@Override
@@ -44,8 +44,8 @@ public class EmptyBinaryTree extends BinaryTree {
 	}
 
 	@Override
-	public boolean find(Movie movie) {
-		return false;
+	public BinaryTree find(Movie movie) {
+		return null;
 	}
 
 }

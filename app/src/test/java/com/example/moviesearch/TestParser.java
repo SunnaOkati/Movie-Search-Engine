@@ -13,7 +13,7 @@ public class TestParser {
 
     @Test(timeout=1000)
     public void testParser() {
-        tokenizer = new Tokenizer("\"movie\" : lucky \"year\" >= 1964 \"genre\" : romantic");
+        tokenizer = new Tokenizer("\"movie\" : lucky luck \"year\" >= 1964 \"genre\" : romantic");
         parser = new Parser(tokenizer);
 
         List<SearchTerm> searchTerms = parser.getSearchTerms();

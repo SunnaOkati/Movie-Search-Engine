@@ -22,6 +22,29 @@ public class SearchQuant extends SearchTerm {
         return movieList;
     }
 
+    public String getSearchCategory() {
+        return searchCategory;
+    }
+
+    public void setSearchCategory(String searchCategory) {
+        this.searchCategory = searchCategory;
+    }
+
+    public String getQuantifier() {
+        return quantifier;
+    }
+
+    public void setQuantifier(String quantifier) {
+        this.quantifier = quantifier;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
     @Override
     public String debugShow() {
         return "CATEGORY: " + this.searchCategory + " QUANTIFIER: " + this.quantifier + " QUANTITY: " + Integer.toString(this.quantity);
