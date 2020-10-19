@@ -1,6 +1,8 @@
 package com.example.moviesearch;
 
-public class Movie{
+import java.io.Serializable;
+
+public class Movie implements Serializable {
     String country;
     String director;
     String genre;

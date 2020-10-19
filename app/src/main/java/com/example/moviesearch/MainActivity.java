@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +31,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         {
             return;
         }
-
+        //Help activity for help screen.
         helpText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        //Descibes the action for search button click action
+        //Describes the action for search button click action
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,8 +127,12 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     //Filter the data provided in "json" file wrt to query
-                    filterMovieData(searchTerms);
-
+                    List<Movie> re;
+                    re=filterMovieData(searchTerms);
+                    Intent intent = new Intent(getApplicationContext(), QueryResults.class);
+                    intent.putExtra("LIST", (Serializable) re);
+                    startActivity(intent);
+                    //intent.putExtra("mylist", myList);
                     }
             }
         });
@@ -215,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
      * Next, traverse backwards till we reach the root node
      * @param searchTerms output from the parser
      */
-    private void filterMovieData(List<SearchTerm> searchTerms) {
+    private List filterMovieData(List<SearchTerm> searchTerms) {
 
         String fileName = "dataset.json";
 
@@ -267,6 +273,7 @@ public class MainActivity extends AppCompatActivity {
         List<Movie> results;
         results = ((NonEmptyBinaryTree)tree).relavantResults();
         Log.d("Output Activity", "Results: " + results.toString());
+        return  results;
     }
 
     @Override

@@ -30,4 +30,14 @@
         app:layout_constraintVertical_bias="0.049"
         tools:srcCompat="@tools:sample/avatars"
         android:contentDescription="TODO" />
+
+    <ListView
+        android:id="@+id/Qres"
+        android:layout_width="409dp"
+        android:layout_height="629dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resLogo" />
 </androidx.constraintlayout.widget.ConstraintLayout>
