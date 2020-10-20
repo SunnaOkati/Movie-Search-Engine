@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.moviesearch.BinaryTree.BinaryTree;
 import com.example.moviesearch.BinaryTree.EmptyBinaryTree;
@@ -30,9 +27,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.Serializable;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,17 +74,21 @@ public class MainActivity extends AppCompatActivity {
         {
             return;
         }
+
+
         //Help activity for help screen.
         helpText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent inHelper = new Intent(MainActivity.this, helper.class);
+                Intent inHelper = new Intent(MainActivity.this, HelpActivity.class);
 
                 startActivity(inHelper);
 
             }
         });
+
+
         //verifies if the user is already signed in
         mFirebaseAuth = FirebaseAuth.getInstance();
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
