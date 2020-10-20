@@ -169,7 +169,7 @@ public class NonEmptyBinaryTree extends BinaryTree {
 
 		//Log.d("Search activity", "Parent: " + tree.movie.toString());
 		while (tree.parent != null ){
-			Log.d("Search activity", "Movie added: " + tree.parent.movie.toString());
+			//Log.d("Search activity", "Movie added: " + tree.parent.movie.toString());
 			path.add(tree.parent.movie);
 			if(tree.parent.left == tree && !tree.parent.right.isEmpty()){
 				path.add(((NonEmptyBinaryTree)tree.parent.right).movie);

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+    <ImageView
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:src="@mipmap/ic_launcher"
+        android:id="@+id/image"
+        ></ImageView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text = "Movie Title"
+        android:textColor="#000"
+        android:textStyle="bold"
+        android:layout_margin="5dp"
+        android:textSize="15sp"
+        android:id="@+id/textViewMovieTitle"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text = "Year of release"
+        android:textColor="#000"
+        android:layout_margin="5dp"
+        android:textSize="10sp"
+        android:id="@+id/textViewYear"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text = "Directed By"
+        android:textColor="#000"
+        android:layout_margin="5dp"
+        android:textSize="10sp"
+        android:id="@+id/textViewDirector"
+        />
+    </LinearLayout>
+</LinearLayout>

@@ -137,10 +137,18 @@ public class Movie implements Serializable {
     @Override
     public String toString() {
         return "Movie{" +
-                "genre='" + genre + '\'' +
+                "country='" + country + '\'' +
+                ", director='" + director + '\'' +
+                ", genre='" + genre + '\'' +
                 ", name='" + name + '\'' +
+                ", rating='" + rating + '\'' +
+                ", star='" + star + '\'' +
+                ", writer='" + writer + '\'' +
                 ", ID='" + ID + '\'' +
+                ", runtime=" + runtime +
                 ", year=" + year +
+                ", price=" + price +
+                ", score=" + score +
                 '}';
     }
 }

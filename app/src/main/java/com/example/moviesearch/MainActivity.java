@@ -129,9 +129,8 @@ public class MainActivity extends AppCompatActivity {
                     List<Movie> re;
                     re=filterMovieData(searchTerms);
                     Intent intent = new Intent(getApplicationContext(), QueryResults.class);
-                    intent.putExtra("LIST", (Serializable) re);
+                    intent.putExtra("LIST",(Serializable) re);
                     startActivity(intent);
-                    //intent.putExtra("mylist", myList);
                     }
             }
         });
@@ -194,8 +193,18 @@ public class MainActivity extends AppCompatActivity {
                     String ID = Soundex.encode(name);
                     String genre = jsonObject.getString("genre");
                     int year = Integer.parseInt(jsonObject.getString("year"));
+                    String country = jsonObject.getString("country");
+                    String director = jsonObject.getString("director");
+                    String rating = jsonObject.getString("rating");
+                    Double score = Double.parseDouble(jsonObject.getString("score"));
+                    String star = jsonObject.getString("star");
+                    String writer = jsonObject.getString("writer");
+                    int runtime = Integer.parseInt(jsonObject.getString("runtime"));
+                    int price = Integer.parseInt(jsonObject.getString("price"));
                     ID = ID + year + genre;
-                    movies.add(new Movie(ID, name, genre, year));
+
+                    movies.add(new Movie(ID, country, director, genre, name, rating, runtime, score, star, writer, year, price));
+                    //movies.add(new Movie(ID, name, genre, year));
                 }
             }
             //Log.d("Added activity", "Movies added.");

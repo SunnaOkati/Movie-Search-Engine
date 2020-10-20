@@ -1,5 +1,7 @@
 package com.example.moviesearch;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -53,32 +55,34 @@ public class Parser {
             // moves on to the next token
             _tokenizer.next();
 
-            if (_tokenizer.hasNext()) {
-                // if the token type is not a colon, return null
-                // TODO: refactor to make all COL_x types COL
-                if (_tokenizer.current().type() != Token.Type.COL_MOVIE) {
-                    return null;
-                }
-            }
-            else {
-                return null;
-            }
+            //TODO: Lawrence Sorry I had to comment these lines to get the code woking. Could you help us with explaining what these lines da
+//            if (_tokenizer.hasNext()) {
+//                // if the token type is not a colon, return null
+//                // TODO: refactor to make all COL_x types COL
+//                if (_tokenizer.current().type() != Token.Type.COL_MOVIE) {
+//                    return null;
+//                }
+//            }
+//            else {
+//                return null;
+//            }
 
             // gets the next token
             _tokenizer.next();
 
-            // checks again, given that no extra logic to account for the colon
-            // token is required.
-            if (_tokenizer.hasNext()) {
-                // if the next token type is not a MATCH value, then return null
-                // as the input is invalid.
-                if (_tokenizer.current().type() != Token.Type.MOVIE_NAME) {
-                    return null;
-                }
-            }
-            else {
-                return null;
-            }
+            //TODO Sorry I had to comment these lines to get the code woking. Could you help us with explaining what these lines da
+//            // checks again, given that no extra logic to account for the colon
+//            // token is required.
+//            if (_tokenizer.hasNext()) {
+//                // if the next token type is not a MATCH value, then return null
+//                // as the input is invalid.
+//                if (_tokenizer.current().type() != Token.Type.MOVIE_NAME) {
+//                    return null;
+//                }
+//            }
+//            else {
+//                return null;
+//            }
             // gets the current token
             String searchQuery = _tokenizer.current().token();
 
@@ -149,7 +153,7 @@ public class Parser {
         while (_tokenizer.hasNext()) {
             // gets a new search term
             SearchTerm searchTerm = parseSearch();
-
+            Log.d("Parsing activity", "Debug: " + searchTerm.debugShow());
             // adds to the search terms list
             searchTerms.add(searchTerm);
         }
