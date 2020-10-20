@@ -105,4 +105,81 @@ public class TestTokenizer {
         assertEquals("wrong token type", Token.Type.GENRE, tokenizer.current().type());
         assertEquals("wrong token value", "romantic", tokenizer.current().token());
     }
+
+    @Test(timeout=1000)
+    public void testInvalidPartialQuery(){
+        tokenizer = new Tokenizer("\"movie\":");
+
+        assertEquals("wrong token type", Token.Type.MOVIE_FIELD, tokenizer.current().type());
+        assertEquals("wrong token value", "\"movie\"", tokenizer.current().token());
+
+        tokenizer.next(); // accessing the second token
+
+        assertEquals("wrong token type", Token.Type.COL_MOVIE, tokenizer.current().type());
+        assertEquals("wrong token value", ":", tokenizer.current().token());
+    }
+
+    @Test(timeout=1000)
+    public void testFullInvalidQuery(){
+        tokenizer = new Tokenizer("\"movie\":\"year\" >= 1964");
+
+        assertEquals("wrong token type", Token.Type.MOVIE_FIELD, tokenizer.current().type());
+        assertEquals("wrong token value", "\"movie\"", tokenizer.current().token());
+
+        tokenizer.next(); // accessing the second token
+
+        assertEquals("wrong token type", Token.Type.COL_MOVIE, tokenizer.current().type());
+        assertEquals("wrong token value", ":", tokenizer.current().token());
+
+        tokenizer.next(); // accessing the third token '"year"'
+
+        assertEquals("wrong token type", Token.Type.YEAR_FIELD, tokenizer.current().type());
+        assertEquals("wrong token value", "\"year\"", tokenizer.current().token());
+
+        tokenizer.next(); // accessing the fourth token '>='
+
+        assertEquals("wrong token type", Token.Type.GTEQ, tokenizer.current().type());
+        assertEquals("wrong token value", ">=", tokenizer.current().token());
+
+        tokenizer.next(); // accessing the sixth token '1964'
+
+        assertEquals("wrong token type", Token.Type.YEAR, tokenizer.current().type());
+        assertEquals("wrong token value", "1964", tokenizer.current().token());
+    }
+
+    @Test(timeout=1000)
+    public void testTokenSubtitle(){
+        tokenizer = new Tokenizer("\"movie\": happy sunrise: a happy story");
+
+        assertEquals("wrong token type", Token.Type.MOVIE_FIELD, tokenizer.current().type());
+        assertEquals("wrong token value", "\"movie\"", tokenizer.current().token());
+
+        tokenizer.next(); // accessing the second token
+
+        assertEquals("wrong token type", Token.Type.COL_MOVIE, tokenizer.current().type());
+        assertEquals("wrong token value", ":", tokenizer.current().token());
+
+        tokenizer.next(); // accessing the third token
+
+        assertEquals("wrong token type", Token.Type.MOVIE_NAME, tokenizer.current().type());
+        assertEquals("wrong token value", "happy sunrise: a happy story", tokenizer.current().token());
+    }
+
+    @Test(timeout=1000)
+    public void testTokenSequel(){
+        tokenizer = new Tokenizer("\"movie\": lucky 2: get lucky");
+
+        assertEquals("wrong token type", Token.Type.MOVIE_FIELD, tokenizer.current().type());
+        assertEquals("wrong token value", "\"movie\"", tokenizer.current().token());
+
+        tokenizer.next(); // accessing the second token
+
+        assertEquals("wrong token type", Token.Type.COL_MOVIE, tokenizer.current().type());
+        assertEquals("wrong token value", ":", tokenizer.current().token());
+
+        tokenizer.next(); // accessing the third token
+
+        assertEquals("wrong token type", Token.Type.MOVIE_NAME, tokenizer.current().type());
+        assertEquals("wrong token value", "lucky 2: get lucky", tokenizer.current().token());
+    }
 }
