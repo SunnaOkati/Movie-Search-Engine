@@ -41,8 +41,8 @@ public class movieDes extends AppCompatActivity {
 
             Log.d("Des activity", "Des Activity: " + moTitle+moYear+moDirector);
             titleMovie.setText(moTitle);
-            yearMovie.setText(moYear);
-            directorMovie.setText(moDirector);
+            yearMovie.setText("Released in"+moYear);
+            directorMovie.setText("Directed By "+moDirector);
 
             actionBar.setTitle(moTitle);
 
