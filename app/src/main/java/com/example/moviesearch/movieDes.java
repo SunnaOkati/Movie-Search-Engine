@@ -39,7 +39,7 @@ public class movieDes extends AppCompatActivity {
             String moYear=intent.getStringExtra("mYear");
             String moDirector=intent.getStringExtra("mDirector");
 
-            Log.d("Des activity", "Des Activity: " + moTitle+moYear+moDirector);
+            //Log.d("Des activity", "Des Activity: " + moTitle+moYear+moDirector);
             titleMovie.setText(moTitle);
             yearMovie.setText("Released in"+moYear);
             directorMovie.setText("Directed By "+moDirector);
