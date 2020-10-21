@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,6 +46,8 @@ public class QueryResultsActivity extends AppCompatActivity {
     private String[] year;
     private String[] director;
 
+    //private String[] genre;
+    //private String[] rating;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,19 +56,23 @@ public class QueryResultsActivity extends AppCompatActivity {
         lvSearchResults=findViewById(R.id.listviewQueryResults);
         //ArrayList<String> mArray = new ArrayList<String>();
 
-        ArrayList<Movie> moviesList = (ArrayList<Movie>) getIntent().getSerializableExtra("LIST");
+        final ArrayList<Movie> moviesList = (ArrayList<Movie>) getIntent().getSerializableExtra("LIST");
         tvTitle = findViewById(R.id.textViewTitle);
-        tvTitle.setText("Showing top " + moviesList.size() + " results:");
+//        tvTitle.setText("Showing top " + moviesList.size() + " results:");
 
         title = new String[moviesList.size()];
         year =  new String[moviesList.size()];
         director =  new String[moviesList.size()];
+        //genre =  new String[moviesList.size()];
+        //rating =  new String[moviesList.size()];
 
-        Log.d("View activity", "Size of the array: " + moviesList.size());
+        //Log.d("View activity", "Size of the array: " + moviesList.size());
         for(int i = 0 ; i < moviesList.size(); i ++){
             title[i] = moviesList.get(i).getName();
             year[i] = Integer.toString(moviesList.get(i).getYear());
             director[i] = moviesList.get(i).getDirector();
+
+
         }
         MyAdapter myAdapter = new MyAdapter(this, title, year, director);
 
@@ -77,6 +84,21 @@ public class QueryResultsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+        for(int x=0;x<moviesList.size();x++){
+            if(x==i){
+                 Intent in=new Intent(getApplicationContext(),movieDes.class);
+                 Bundle bun=new Bundle();
+
+                 in.putExtra("mTitle",title[x]);
+                 in.putExtra("mYear",year[x]);
+                in.putExtra("mDirector",director[x]);
+                 in.putExtra("position",""+x+1);
+                System.out.println(title[x]+year[x]);
+                Log.d("view activity", "inside intent: " + title[x]+year[x]);
+                 startActivity(in);
+
+            }
+        }
             }
         });
     }
