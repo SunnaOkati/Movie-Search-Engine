@@ -4,45 +4,51 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp">
-    <ImageView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:src="@mipmap/ic_launcher"
-        android:id="@+id/image"
-        ></ImageView>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text = "Movie Title"
-        android:textColor="#000"
-        android:textStyle="bold"
-        android:layout_margin="5dp"
-        android:textSize="15sp"
-        android:id="@+id/textViewMovieTitle"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text = "Year of release"
-        android:textColor="#000"
-        android:layout_margin="5dp"
-        android:textSize="10sp"
-        android:id="@+id/textViewYear"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text = "Directed By"
-        android:textColor="#000"
-        android:layout_margin="5dp"
-        android:textSize="10sp"
-        android:id="@+id/textViewDirector"
-        />
+        <TextView
+            android:id="@+id/textViewMovieTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Movie Title"
+            android:textColor="#000"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewYear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Year of release"
+            android:textColor="#000"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/textViewDirector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Directed By"
+            android:textColor="#000"
+            android:textSize="10sp" />
     </LinearLayout>
+
+    <Button
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="top|left"
+        android:background="@drawable/ic_baseline_favorite_grey_24"
+        android:id="@+id/buttonFavourite"/>
+<!--    <ImageView-->
+<!--        android:layout_width="75dp"-->
+<!--        android:layout_height="75dp"-->
+<!--        android:src="@mipmap/ic_launcher"-->
+<!--        android:id="@+id/image"-->
+<!--        ></ImageView>-->
 </LinearLayout>

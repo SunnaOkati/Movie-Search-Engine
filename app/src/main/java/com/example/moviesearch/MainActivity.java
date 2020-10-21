@@ -32,6 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private String user;
     private Button btnSignIn;
     private Button btnSignUp;
     private Button btnSearch;
@@ -96,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(mFirebaseUser!=null){
-                    Toast.makeText(MainActivity.this, "You are logged in" + mFirebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
+                    user = mFirebaseUser.getEmail();
+                    Toast.makeText(MainActivity.this, "You are logged in" + user, Toast.LENGTH_SHORT).show();
                     btnSignIn.setVisibility(View.INVISIBLE);
                     btnSignUp.setVisibility(View.INVISIBLE);
                 }
@@ -130,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
                     re=filterMovieData(searchTerms);
                     Intent intent = new Intent(getApplicationContext(), QueryResultsActivity.class);
                     intent.putExtra("LIST",(Serializable) re);
+                    intent.putExtra("USER", user);
                     startActivity(intent);
                     }
             }

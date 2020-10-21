@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "Sign in Unsuccessful, Please try again", Toast.LENGTH_SHORT).show();
                             else {
                                 Toast.makeText(LoginActivity.this, "Sign in successful!", Toast.LENGTH_SHORT).show();
-
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             }
                         }
                     });
