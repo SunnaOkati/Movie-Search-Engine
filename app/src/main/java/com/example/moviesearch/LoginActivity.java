@@ -17,7 +17,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     EditText emailID, password;
     Button btnSignIn;
     TextView tvSignUp;
@@ -40,7 +40,7 @@ public class login extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(mFirebaseUser!=null){
-                    Toast.makeText(login.this, "You are logged in", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "You are logged in", Toast.LENGTH_SHORT).show();
                 }
             }
         };
@@ -58,13 +58,13 @@ public class login extends AppCompatActivity {
                     password.setError("Please enter password");
                     password.requestFocus();
                 } else {
-                    mFirebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(login.this, new OnCompleteListener<AuthResult>() {
+                    mFirebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(!task.isSuccessful())
-                                Toast.makeText(login.this, "Sign in Unsuccessful, Please try again", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Sign in Unsuccessful, Please try again", Toast.LENGTH_SHORT).show();
                             else {
-                                Toast.makeText(login.this, "Sign in successful!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Sign in successful!", Toast.LENGTH_SHORT).show();
 
                             }
                         }
@@ -75,7 +75,7 @@ public class login extends AppCompatActivity {
         tvSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(login.this, register.class));
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
     }

@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                     //Filter the data provided in "json" file wrt to query
                     List<Movie> re;
                     re=filterMovieData(searchTerms);
-                    Intent intent = new Intent(getApplicationContext(), QueryResults.class);
+                    Intent intent = new Intent(getApplicationContext(), QueryResultsActivity.class);
                     intent.putExtra("LIST",(Serializable) re);
                     startActivity(intent);
                     }
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intSignUp = new Intent(MainActivity.this, register.class);
+                Intent intSignUp = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(intSignUp);
             }
         });
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, login.class));
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
             }
         });
 

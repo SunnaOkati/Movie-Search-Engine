@@ -37,7 +37,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.EventListener;
 
-public class QueryResults extends AppCompatActivity {
+public class QueryResultsActivity extends AppCompatActivity {
 
     private TextView tvTitle;
     private ListView lvSearchResults;

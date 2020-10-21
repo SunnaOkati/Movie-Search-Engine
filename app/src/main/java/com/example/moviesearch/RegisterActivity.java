@@ -15,9 +15,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
-public class register extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
     EditText emailID, password;
     Button btnSignUp;
     TextView tvSignIn;
@@ -48,14 +47,14 @@ public class register extends AppCompatActivity {
                     password.setError("Please enter password");
                     password.requestFocus();
                 } else {
-                    mFirebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(register.this, new OnCompleteListener<AuthResult>() {
+                    mFirebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful())
-                                Toast.makeText(register.this, "Sign up unsuccessful, Please try again", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, "Sign up unsuccessful, Please try again", Toast.LENGTH_SHORT).show();
                             else {
-                                Toast.makeText(register.this, "Sign up successful!", Toast.LENGTH_SHORT).show();
-                                Intent intSignIn = new Intent(register.this, login.class);
+                                Toast.makeText(RegisterActivity.this, "Sign up successful!", Toast.LENGTH_SHORT).show();
+                                Intent intSignIn = new Intent(RegisterActivity.this, LoginActivity.class);
                                 startActivity(intSignIn);
                             }
                         }
@@ -67,7 +66,7 @@ public class register extends AppCompatActivity {
         tvSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(register.this, login.class));
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
             }
         });
     }

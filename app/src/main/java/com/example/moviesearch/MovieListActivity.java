@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class MovieList extends AppCompatActivity {
+public class MovieListActivity extends AppCompatActivity {
 
     private ImageView logo;
     private Button TrButton;
