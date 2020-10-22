@@ -265,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
                     count++;
                 }
             }
-            else if(searchYearQuant == 60){
+            else if(searchYearQuant == 61){
                 Log.d("Error activity" , "Wrong entry");
                 tree = tree.insert(m);
                 count++;

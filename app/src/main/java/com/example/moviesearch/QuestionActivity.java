@@ -34,7 +34,7 @@ public class QuestionActivity extends AppCompatActivity {
         textQuestion = question;
         if(question.compareTo(questionList.get(0)) == 0)
         {
-            textAnswer = "Query format : \"movie\" : movie_name \"year\" <|=|> year \"genre\" : genre_name \n\n" +
+            textAnswer = "Query format : \"movie\" : movie_name \"year\" < or = or > year \"genre\" : genre_name \n\n" +
                     "The query consists of three categories. All the categories need to be mentioned. These" +
                     " categories are: movie name, year and genre. The query needs to be entered in the same order as" +
                     "shown above.\n\n"+
@@ -43,8 +43,8 @@ public class QuestionActivity extends AppCompatActivity {
         }
         if(question.compareTo(questionList.get(1)) == 0)
         {
-            textAnswer = "The results into 5 movies related to the query Entered. If the movie"+
-                    " doesn't exist in the database, it would still result in 5 movies.";
+            textAnswer = "The query results into list of movies related to the query Entered. If the movie"+
+                    " doesn't exist in the database, it would still display some movies.";
         }
         if(question.compareTo(questionList.get(2)) == 0)
         {
