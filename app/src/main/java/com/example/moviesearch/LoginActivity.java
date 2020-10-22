@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(mFirebaseUser!=null){
-                    Toast.makeText(LoginActivity.this, "You are logged in", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "You are logged in ", Toast.LENGTH_SHORT).show();
                 }
             }
         };
