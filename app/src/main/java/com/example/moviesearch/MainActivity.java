@@ -187,7 +187,6 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String name = jsonObject.getString("name");
 
-                //Added to the array list if first character matches
                 //ID is computed using Soundex algorithm and oncatenated with year and genre
                 if(findStringSimilarity(name, movieName)){
                     String ID = Soundex.encode(name);
@@ -204,7 +203,6 @@ public class MainActivity extends AppCompatActivity {
                     ID = ID + year + genre;
 
                     movies.add(new Movie(ID, country, director, genre, name, rating, runtime, score, star, writer, year, price));
-                    //movies.add(new Movie(ID, name, genre, year));
                 }
             }
             //Log.d("Added activity", "Movies added.");
