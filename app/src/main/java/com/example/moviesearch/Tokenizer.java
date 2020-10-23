@@ -193,9 +193,16 @@ public class Tokenizer {
 
             int pos = savedText.indexOf(firstChar), end = pos + 1;
 
-            // while the current character isn't a field delimiters, add to the saved text
-            while (end < savedText.length() && savedText.charAt(end) != ',')
-                end++;
+            // checks if the obtained string is just a comma
+            if (savedText.charAt(pos) != ',') {
+                // while the current character isn't a field delimiters, add to the saved text
+                while (end < savedText.length() && savedText.charAt(end) != ',')
+                    end++;
+            }
+            else {
+                // sets end so that it's the same as pos, eliminating the comma
+                end = pos;
+            }
 
             // if the end has been reached, compare the query to the field types and check
             // if there's a match

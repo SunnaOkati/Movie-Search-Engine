@@ -273,14 +273,17 @@ public class MainActivity extends AppCompatActivity {
         String searchID;
         Movie searchMovie;
 
+        for (SearchTerm searchTerm : searchTerms) {
+            System.out.println(searchTerm.debugShow());
+        }
+
         //Creating an instance of movie with the user query
         searchYear = ((SearchQuant) searchTerms.get(1)).getQuantity();
         searchYearQuant = (int) ((SearchQuant) searchTerms.get(1)).getQuantifier().charAt(0);
         searchGenre = ((SearchMatch) searchTerms.get(2)).getSearchQuery();
         searchMovieName = ((SearchMatch) searchTerms.get(0)).getSearchQuery();
+
         searchID = Soundex.encode(searchMovieName) + searchYear + searchGenre;
-
-
 
         searchMovie = new Movie(searchID, searchMovieName, searchGenre, searchYear);
 
