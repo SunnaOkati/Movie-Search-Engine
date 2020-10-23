@@ -5,17 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".QueryResultsActivity"
+    android:background="#37383A"
     android:orientation="vertical">
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Results"
-    android:textSize="20sp"
-    android:textColor="#000"
-    android:id="@+id/textViewTitle"
-    android:layout_margin="5dp"
-    android:textStyle="bold">
-</TextView>
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#434345"
+        android:fontFamily="@font/spacegrotesk_medium"
+        android:padding="12dp"
+        android:text="Results"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"></TextView>
     <ListView
         android:id="@+id/listviewQueryResults"
         android:layout_width="match_parent"

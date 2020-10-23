@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -55,20 +56,39 @@ public class QueryResultsActivity extends AppCompatActivity {
     private String[] director;
     private Boolean[] favourites;
     private Drawable favRed;
-
     //private String[] genre;
-    //private String[] rating;
+    private String[] rating;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_query_results);
+
+        ImageButton backButton = findViewById(R.id.backButton);
+
+        // attempts to set the back button image
+        // sets the image for the logo from the assets.
+        try{
+            // gets the input stream, loads as drawable
+            InputStream inputStream = getAssets().open("back_arrow.png");
+            Drawable drawable = Drawable.createFromStream(inputStream, null);
+
+            // sets the imageView image
+            backButton.setImageDrawable(drawable);
+
+            inputStream.close();
+        }
+        catch(IOException ex)
+        {
+            return;
+        }
 
         lvSearchResults=findViewById(R.id.listviewQueryResults);
         favRed = getResources().getDrawable(R.drawable.ic_baseline_favorite_red_24);
 
         //ArrayList<Movie> moviesList = (ArrayList<Movie>) getIntent().getSerializableExtra("LIST");
         username = getIntent().getStringExtra("USER");
-        Log.d("LogIn" , "Logged in " + username);
+
         final ArrayList<Movie> moviesList = (ArrayList<Movie>) getIntent().getSerializableExtra("LIST");
         tvTitle = findViewById(R.id.textViewTitle);
         tvTitle.setText("Showing top " + moviesList.size() + " results:");
@@ -79,18 +99,17 @@ public class QueryResultsActivity extends AppCompatActivity {
         year =  new String[moviesList.size()];
         director =  new String[moviesList.size()];
         favourites = new Boolean[moviesList.size()];
-        //genre =  new String[moviesList.size()];
-        //rating =  new String[moviesList.size()];
+        rating =  new String[moviesList.size()];
 
-        //Log.d("View activity", "Size of the array: " + moviesList.size());
         for(int i = 0 ; i < moviesList.size(); i ++){
             title[i] = moviesList.get(i).getName();
             year[i] = Integer.toString(moviesList.get(i).getYear());
+            rating[i] = Double.toString(moviesList.get(i).getScore());
             director[i] = moviesList.get(i).getDirector();
             favourites[i] = false;
         }
 
-        try{ //note that Try-with-resources requires API level 19
+        try{ // note that Try-with-resources requires API level 19
             rawreader = new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.data), "UTF-8")); //the encoding is optional String line;
             while ((line = rawreader.readLine()) != null) { //read each line until end of file
                 String[] tokens = line.split(","); //break each line into tokens (note that we are reading a csv file (comma-separated values)
@@ -116,7 +135,7 @@ public class QueryResultsActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"File not found",Toast.LENGTH_SHORT).show();
         }
 
-        MyAdapter myAdapter = new MyAdapter(this, title, year, director, favourites);
+        MyAdapter myAdapter = new MyAdapter(this, title, year, director, rating, favourites);
 
         lvSearchResults.setAdapter(myAdapter);
         myAdapter.notifyDataSetChanged();
@@ -125,38 +144,50 @@ public class QueryResultsActivity extends AppCompatActivity {
         lvSearchResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            for(int x=0;x<moviesList.size();x++){
+                if(x==i){
+                     Intent in=new Intent(getApplicationContext(),movieDes.class);
+                     Bundle bun=new Bundle();
 
-        for(int x=0;x<moviesList.size();x++){
-            if(x==i){
-                 Intent in=new Intent(getApplicationContext(),movieDes.class);
-                 Bundle bun=new Bundle();
+                     in.putExtra("mTitle",title[x]);
+                     in.putExtra("mYear",year[x]);
+                     in.putExtra("mDirector",director[x]);
+                     in.putExtra("position",""+x+1);
+                     System.out.println(title[x]+year[x]);
+                     Log.d("view activity", "inside intent: " + title[x]+year[x]);
+                     startActivity(in);
 
-                 in.putExtra("mTitle",title[x]);
-                 in.putExtra("mYear",year[x]);
-                 in.putExtra("mDirector",director[x]);
-                 in.putExtra("position",""+x+1);
-                 System.out.println(title[x]+year[x]);
-                 Log.d("view activity", "inside intent: " + title[x]+year[x]);
-                 startActivity(in);
-
+                }
             }
-        }
+            }
+        });
+
+        // Help activity for help screen.
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
 
     class MyAdapter extends ArrayAdapter<String>{
+        // initialises variables
         Context context;
         String title[];
         String year[];
         String director[];
+        String rating[];
         Boolean favourites[];
-        MyAdapter (Context c, String title[], String year[], String director[], Boolean favourites[]){
+
+        // creates an adapter for the results list
+        MyAdapter (Context c, String title[], String year[], String director[], String rating[], Boolean favourites[]){
             super(c, R.layout.row, R.id.textViewMovieTitle, title);
             this.context = c;
             this.title = title;
             this.year = year;
             this.director = director;
+            this.rating = rating;
             this.favourites = favourites;
         }
 
@@ -165,16 +196,26 @@ public class QueryResultsActivity extends AppCompatActivity {
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View row = layoutInflater.inflate(R.layout.row, parent, false);
+
+            // gets the row's views for formatting.
             TextView myTitle = row.findViewById(R.id.textViewMovieTitle);
+            TextView myRating = row.findViewById(R.id.textViewRating);
             TextView myYear = row.findViewById(R.id.textViewYear);
             TextView myDirector = row.findViewById(R.id.textViewDirector);
             Button btnFavourite = row.findViewById(R.id.buttonFavourite);
 
+            // if the movie has been favourited, then set the favourite button to red.
             if (favourites[position])
                 btnFavourite.setBackground(favRed);
+
+            // sets the title of the movie
             myTitle.setText(title[position]);
-            myYear.setText("Year of release: " +year[position]);
+
+            // sets the rating, year and director for the movie
+            myRating.setText(rating[position] + " Average Rating");
+            myYear.setText("Year of release: " + year[position]);
             myDirector.setText("Directed by " + director[position]);
+
             return row;
         }
     }

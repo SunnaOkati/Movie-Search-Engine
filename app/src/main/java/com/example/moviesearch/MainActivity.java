@@ -7,11 +7,13 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     int count = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -81,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        //Help activity for help screen.
+        // Help activity for help screen.
         helpText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,12 +95,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         //verifies if the user is already signed in
         mFirebaseAuth = FirebaseAuth.getInstance();
         if(mFirebaseAuth.getCurrentUser() != null){
             btnSignIn.setVisibility(View.INVISIBLE);
             btnSignUp.setVisibility(View.INVISIBLE);
+        }
+        else {
+            btnLogOut.setVisibility(View.INVISIBLE);
         }
 
         //Describes the action for search button click action
@@ -322,11 +327,8 @@ public class MainActivity extends AppCompatActivity {
 
         searchMovie = new Movie(searchID, searchMovieName, searchGenre, searchYear);
 
-        //Log.d("Display activity", "Movie searched: " + searchMovie + " Quantifier: " + searchYearQuant);
-
         //Loading data from json
         loadFromJSONFile(fileName, searchMovieName, searchYearQuant, searchYear);
-        //Log.d("Insert activity", "Nodes inserted: " + tree.size() + " Height of the tree: " + tree.height());
 
         //The leaf node that is most relavant to query is found
         tree = tree.find(searchMovie);
