@@ -94,17 +94,22 @@ public class QueryResultsActivity extends AppCompatActivity {
             rawreader = new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.data), "UTF-8")); //the encoding is optional String line;
             while ((line = rawreader.readLine()) != null) { //read each line until end of file
                 String[] tokens = line.split(","); //break each line into tokens (note that we are reading a csv file (comma-separated values)
-                if(tokens[0].contains(username)) {
-                    Log.d("Login Activity", "User Name: " + username + " file Name: " + tokens[0]);
-                    for (int i = 1; i < tokens.length; i++) {
-                        for (int j = 0 ; j<title.length; j++){
-                            if(tokens[i].equals(title[j])) {
-                                favourites[j] = true;
-                                Log.d("Favourite activity", "Favourite: " + title[j]);
+                System.out.println(tokens.length);
+                System.out.println(tokens[0]);
+                System.out.println(tokens[1]);
+                if (username != null) {
+                    if(tokens[0].contains(username)) {
+                        Log.d("Login Activity", "User Name: " + username + " file Name: " + tokens[0]);
+                        for (int i = 1; i < tokens.length; i++) {
+                            for (int j = 0 ; j<title.length; j++){
+                                if(tokens[i].equals(title[j])) {
+                                    favourites[j] = true;
+                                    Log.d("Favourite activity", "Favourite: " + title[j]);
+                                }
                             }
                         }
+                        break;
                     }
-                    break;
                 }
             }
         } catch (IOException e) {
@@ -128,10 +133,10 @@ public class QueryResultsActivity extends AppCompatActivity {
 
                  in.putExtra("mTitle",title[x]);
                  in.putExtra("mYear",year[x]);
-                in.putExtra("mDirector",director[x]);
+                 in.putExtra("mDirector",director[x]);
                  in.putExtra("position",""+x+1);
-                System.out.println(title[x]+year[x]);
-                Log.d("view activity", "inside intent: " + title[x]+year[x]);
+                 System.out.println(title[x]+year[x]);
+                 Log.d("view activity", "inside intent: " + title[x]+year[x]);
                  startActivity(in);
 
             }
