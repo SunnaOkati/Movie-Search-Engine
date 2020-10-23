@@ -11,7 +11,8 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#434345">
+        android:background="#434345"
+        tools:ignore="MissingConstraints">
 
         <TextView
             android:id="@+id/textTitle"
@@ -99,5 +100,29 @@
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="@+id/movYear"
         app:layout_constraintTop_toBottomOf="@+id/movYear" />
+
+    <TextView
+        android:id="@+id/movCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/spacegrotesk_regular"
+        android:text="Country"
+        android:textColor="#E0E0E0"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="@+id/movDirector"
+        app:layout_constraintTop_toBottomOf="@+id/movDirector" />
+
+    <TextView
+        android:id="@+id/movWriter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/spacegrotesk_regular"
+        android:text="Writer"
+        android:textColor="#E0E0E0"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="@+id/movCountry"
+        app:layout_constraintTop_toBottomOf="@+id/movCountry" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
