@@ -27,7 +27,33 @@ public class QuestionActivity extends AppCompatActivity {
         helpQuestion = findViewById(R.id.helpQues);
         helpAnswer = findViewById(R.id.helpAns);
 
-        System.out.println("\nNext activity reached");
+        // gets the back button
+        ImageButton backButton = findViewById(R.id.backButton);
+
+        // attempts to set the back button image
+        // sets the image for the logo from the assets.
+        try {
+            // gets the input stream, loads as drawable
+            InputStream inputStream = getAssets().open("back_arrow.png");
+            Drawable drawable = Drawable.createFromStream(inputStream, null);
+
+            // sets the imageView image
+            backButton.setImageDrawable(drawable);
+
+            inputStream.close();
+        }
+        catch (IOException ex) {
+            return;
+        }
+
+        // sets up the back button to go back
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         String textQuestion;
         String textAnswer = "";
 
@@ -38,30 +64,25 @@ public class QuestionActivity extends AppCompatActivity {
 
         // based on the extracted question, gets the answer text.
         textQuestion = question;
-        if(question.compareTo(questionList.get(0)) == 0)
-        {
-            textAnswer = "Query format : \"movie\" : movie_name \"year\" < or = or > year \"genre\" : genre_name \n\n" +
-                    "The query consists of three categories. All the categories need to be mentioned. These" +
-                    " categories are: movie name, year and genre. The query needs to be entered in the same order as" +
-                    "shown above.\n\n"+
-                    "Example:\n"+
-                    "\"movie\" : cat \"year\" = 2001 \"genre\" : comedy";
+        if (question.compareTo(questionList.get(0)) == 0) {
+            textAnswer = "To use the search, you can input your search as follows:\n\n"+
+                    "Field : Query\n\n"+
+                    "You can use as many fields in the query as you want, all you'll need to do" +
+                    "is separate them using a comma! For example, you can use the following to" +
+                    "search for a movie that have titles similar to 'super' from 1984 onwards:\n\n" +
+                    "movie: super, year >= 1984\n\n" +
+                    "Some fields use colons, though some fields use 'quantifiers' like >, = or <= " +
+                    "instead. Don't worry if you get mixed up, the system will automatically convert" +
+                    "colons to quantifiers and vice-versa.";
         }
-        if(question.compareTo(questionList.get(1)) == 0)
-        {
-            textAnswer = "The query results into list of movies related to the query Entered. If the movie"+
-                    " doesn't exist in the database, it would still display some movies.";
+        else if (question.compareTo(questionList.get(1)) == 0) {
+            textAnswer = "You can use the following fields to search for movies:\n\n" +
+                    "genre - Searches by a movie's genre, uses colons.\n\n" +
+                    "movie - Searches based on a movie's name, uses colons.\n\n" +
+                    "year - Searches by a movie's release year, uses quantifiers.";
         }
-        if(question.compareTo(questionList.get(2)) == 0)
-        {
-            textAnswer = "Do's\n"+
-                    "1. Strictly Follow the Query Format.\n"+
-                    "2. Have a little patience while the App searches for your movie.\n\n"+
-                    "Dont's\n"+
-                    "1. Search doesn't support search for only one category. So all the three " +
-                    "categories, i.e., movie name, year and genre should be included in the query.\n"+
-                    "2. Don't include number in movie name.";
-        }
+
+        // sets the question and answer text
         helpQuestion.setText(textQuestion);
         helpAnswer.setText(textAnswer);
     }
