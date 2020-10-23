@@ -87,14 +87,14 @@ public class QueryResultsActivity extends AppCompatActivity {
         for(int x=0;x<moviesList.size();x++){
             if(x==i){
                  Intent in=new Intent(getApplicationContext(),movieDes.class);
-                 Bundle bun=new Bundle();
+                 //Bundle bun=new Bundle();
 
                  in.putExtra("mTitle",title[x]);
                  in.putExtra("mYear",year[x]);
                 in.putExtra("mDirector",director[x]);
-                 in.putExtra("position",""+x+1);
-                System.out.println(title[x]+year[x]);
-                Log.d("view activity", "inside intent: " + title[x]+year[x]);
+                // in.putExtra("position",""+x+1);
+              //  System.out.println(title[x]+year[x]);
+               // Log.d("view activity", "inside intent: " + title[x]+year[x]);
                  startActivity(in);
 
             }
