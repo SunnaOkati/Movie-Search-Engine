@@ -108,9 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 if (editTextquery.getText().toString().isEmpty()) //if the query is left empty
                     Toast.makeText(getApplicationContext(),"Please enter a query", Toast.LENGTH_SHORT).show();
                 else {
-                    //TODO: Ashok please edit
-                    //Tokenizing given query
-                    //Query format :- "movie" : <movie_name> "year" <|=|> <year> "genre" : <genre_name>
+
                     tokenizer = new Tokenizer(editTextquery.getText().toString());
 
                     //Parsing given tokens
@@ -118,9 +116,6 @@ public class MainActivity extends AppCompatActivity {
 
                     //Extracting search terms
                     List<SearchTerm> searchTerms = parser.getSearchTerms();
-                    for (SearchTerm term : searchTerms) {
-                        Log.d("Parsing activity", "Search terms: " + term.debugShow());
-                    }
 
                     //Filter the data provided in "json" file wrt to query
                     List<Movie> re;
@@ -129,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("LIST",(Serializable) re);
                     intent.putExtra("USER", user);
                     startActivity(intent);
-                    }
+                }
             }
         });
 
@@ -166,10 +161,15 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean findStringSimilarity(String name, String movieName) {
         //Log.d("Query: ", editTextquery.getText().toString().toLowerCase());
-        if(name.toLowerCase().charAt(0) == movieName.toLowerCase().charAt(0))
+        // if the movie name is longer than 0, ie. it actually got put in, then
+        // perform the query to find string similarity. else, consider them similar.
+        if (movieName.length() > 0) {
+            return name.toLowerCase().charAt(0) == movieName.toLowerCase().charAt(0);
+        }
+        else {
             return true;
+        }
 
-        return false;
     }
 
     /**
@@ -232,8 +232,10 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     else if(searchYearQuant == 61){
-                        tree = tree.insert(m);
-                        count++;
+                        if (m.getYear() == searchYear) {
+                            tree = tree.insert(m);
+                            count++;
+                        }
                     }
 
                     //movies.add(new Movie(ID, country, director, genre, name, rating, runtime, score, star, writer, year, price));
@@ -273,14 +275,50 @@ public class MainActivity extends AppCompatActivity {
         String searchID;
         Movie searchMovie;
 
-        //Creating an instance of movie with the user query
-        searchYear = ((SearchQuant) searchTerms.get(1)).getQuantity();
-        searchYearQuant = (int) ((SearchQuant) searchTerms.get(1)).getQuantifier().charAt(0);
-        searchGenre = ((SearchMatch) searchTerms.get(2)).getSearchQuery();
-        searchMovieName = ((SearchMatch) searchTerms.get(0)).getSearchQuery();
+        // Creating an instance of movie with the user query
+
+        // initialises the following values by creating generic searchterms
+        searchYear = 0;
+        searchYearQuant = (int) '>';
+        searchGenre = "";
+        searchMovieName = "";
+
+        // for each element in the search terms, sets the search query data based on this
+        // information.
+        for (SearchTerm searchTerm : searchTerms) {
+            if (searchTerm != null) {
+                // gets the search term's search query type
+                String queryField = searchTerm.getSearchCategory();
+
+                System.out.println(queryField);
+
+                // based on the search category, changes the search year and other attributes
+                if (queryField.equals("\"movie\"")) {
+                    // casts the term to searchMatch
+                    SearchMatch searchMatch = (SearchMatch) searchTerm;
+
+                    // based on this, sets the moviename
+                    searchMovieName = searchMatch.getSearchQuery();
+                }
+                else if (queryField.equals("\"genre\"")) {
+                    // casts the term to searchMatch
+                    SearchMatch searchMatch = (SearchMatch) searchTerm;
+
+                    // based on this, sets the genre
+                    searchGenre = searchMatch.getSearchQuery();
+                }
+                if (queryField.equals("\"year\"")) {
+                    // casts the term to searchQuant
+                    SearchQuant searchQuant = (SearchQuant) searchTerm;
+
+                    // based on this, sets the year quantifier and year
+                    searchYearQuant = (int) searchQuant.getQuantifier().charAt(0);
+                    searchYear = searchQuant.getQuantity();
+                }
+            }
+        }
+
         searchID = Soundex.encode(searchMovieName) + searchYear + searchGenre;
-
-
 
         searchMovie = new Movie(searchID, searchMovieName, searchGenre, searchYear);
 
@@ -295,10 +333,13 @@ public class MainActivity extends AppCompatActivity {
 
         //Tree is traversed from bottom to top (i.e leaf to root)
         //which gives us the path. The ones in the path are considered as candidate results
-        List<Movie> results;
-        results = ((NonEmptyBinaryTree)tree).relavantResults();
-        Log.d("Output Activity", "Results: " + results.toString());
-        return  results;
+        List<Movie> results = new ArrayList<Movie>();
+
+        if (tree != null) {
+            results = ((NonEmptyBinaryTree)tree).relavantResults();
+        }
+
+        return results;
     }
 
 }

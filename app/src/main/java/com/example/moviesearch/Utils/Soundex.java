@@ -5,8 +5,11 @@ public class Soundex {
     public static String encode(String s)
     {
         char[] x = s.toUpperCase().toCharArray();
+        char firstLetter = '0';
 
-        char firstLetter = x[0];
+        if (x.length > 0) {
+            firstLetter = x[0];
+        }
 
         //Encoding numeric to alphabets
         for (int i = 0; i < x.length; i++) {

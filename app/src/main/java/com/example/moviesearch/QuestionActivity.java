@@ -22,7 +22,7 @@ public class QuestionActivity extends AppCompatActivity {
         helpQuestion = findViewById(R.id.helpQues);
         helpAnswer = findViewById(R.id.helpAns);
 
-        //System.out.println("\nNext activity reached");
+        System.out.println("\nNext activity reached");
         String textQuestion;
         String textAnswer = "";
 
@@ -30,7 +30,6 @@ public class QuestionActivity extends AppCompatActivity {
         String question = intent.getStringExtra("Question");
         ArrayList<String> questionList = intent.getStringArrayListExtra("listOfQuestions");
 
-        //System.out.println("hi");
         textQuestion = question;
         if(question.compareTo(questionList.get(0)) == 0)
         {

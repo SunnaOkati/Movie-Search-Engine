@@ -257,4 +257,72 @@ public class TestTokenizer {
         assertEquals("wrong token type", Token.Type.QUANTITY, tokenizer.current().type());
         assertEquals("wrong token value", "1984", tokenizer.current().token());
     }
+
+    //-----------------------------
+
+    @Test(timeout=1000)
+    public void testPrevIncompleteMatchQuery(){
+        tokenizer = new Tokenizer("movie: , movie: happy");
+
+        assertEquals("wrong token type", Token.Type.MOVIE_FIELD, tokenizer.current().type());
+        assertEquals("wrong token value", "\"movie\"", tokenizer.current().token());
+
+        tokenizer.next(); // accessing the second token
+
+        assertEquals("wrong token type", Token.Type.COL, tokenizer.current().type());
+        assertEquals("wrong token value", ":", tokenizer.current().token());
+
+        tokenizer.next(); // accessing the third token
+
+        assertEquals("wrong token type", Token.Type.MATCH, tokenizer.current().type());
+        assertEquals("wrong token value", "", tokenizer.current().token());
+
+        tokenizer.next(); // accessing the fourth token
+
+        assertEquals("wrong token type", Token.Type.MOVIE_FIELD, tokenizer.current().type());
+        assertEquals("wrong token value", "\"movie\"", tokenizer.current().token());
+
+        tokenizer.next(); // accessing the fifth token
+
+        assertEquals("wrong token type", Token.Type.COL, tokenizer.current().type());
+        assertEquals("wrong token value", ":", tokenizer.current().token());
+
+        tokenizer.next(); // accessing the sixth token
+
+        assertEquals("wrong token type", Token.Type.MATCH, tokenizer.current().type());
+        assertEquals("wrong token value", "happy", tokenizer.current().token());
+    }
+
+    @Test(timeout=1000)
+    public void testPrevIncompleteQuantQuery(){
+        tokenizer = new Tokenizer("year > , movie: wolf of wall street");
+
+        assertEquals("wrong token type", Token.Type.YEAR_FIELD, tokenizer.current().type());
+        assertEquals("wrong token value", "\"year\"", tokenizer.current().token());
+
+        tokenizer.next(); // accessing the second token
+
+        assertEquals("wrong token type", Token.Type.GT, tokenizer.current().type());
+        assertEquals("wrong token value", ">", tokenizer.current().token());
+
+        tokenizer.next(); // accessing the third token
+
+        assertEquals("wrong token type", Token.Type.QUANTITY, tokenizer.current().type());
+        assertEquals("wrong token value", "", tokenizer.current().token());
+
+        tokenizer.next(); // accessing the fourth token
+
+        assertEquals("wrong token type", Token.Type.MOVIE_FIELD, tokenizer.current().type());
+        assertEquals("wrong token value", "\"movie\"", tokenizer.current().token());
+
+        tokenizer.next(); // accessing the fifth token
+
+        assertEquals("wrong token type", Token.Type.COL, tokenizer.current().type());
+        assertEquals("wrong token value", ":", tokenizer.current().token());
+
+        tokenizer.next(); // accessing the sixth token
+
+        assertEquals("wrong token type", Token.Type.MATCH, tokenizer.current().type());
+        assertEquals("wrong token value", "wolf of wall street", tokenizer.current().token());
+    }
 }
