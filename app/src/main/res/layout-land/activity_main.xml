@@ -10,9 +10,9 @@
 
     <ImageView
         android:id="@+id/logo_image"
-        android:layout_width="175dp"
-        android:layout_height="168dp"
-        android:layout_marginTop="72dp"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:layout_marginTop="36dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,6 +22,8 @@
         android:id="@+id/buttonLogOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
         android:background="#434345"
         android:fontFamily="@font/spacegrotesk_semibold"
         android:text="Log Out"
@@ -29,16 +31,14 @@
         android:textColor="#ECECEC"
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/queryText"
-        app:layout_constraintVertical_bias="0.287" />
+        app:layout_constraintTop_toBottomOf="@+id/queryText" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/spacegrotesk_bold"
         android:text="Welcome to Kinobase"
         android:textColor="#FFFFFF"
@@ -68,9 +68,11 @@
         android:id="@+id/queryText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
         android:layout_marginTop="12dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
         android:ems="10"
         android:fontFamily="@font/spacegrotesk_light"
         android:hint="Search"
@@ -78,18 +80,17 @@
         android:textColor="#F6F6F6"
         android:textColorHint="#707070"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonSearch"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         app:layout_constraintVertical_bias="0.151" />
 
     <Button
         android:id="@+id/buttonSearch"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
+        android:layout_width="280dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginRight="48dp"
         android:background="#434345"
         android:fontFamily="@font/spacegrotesk_semibold"
         android:text="Search"
@@ -98,17 +99,14 @@
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/queryText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/queryText"
-        app:layout_constraintTop_toTopOf="@+id/queryText"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="@+id/queryText" />
 
     <Button
         android:id="@+id/buttonSignUp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginLeft="84dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
         android:background="#434345"
         android:fontFamily="@font/spacegrotesk_semibold"
         android:text="Sign Up"
@@ -118,24 +116,23 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/queryText"
-        app:layout_constraintVertical_bias="0.287" />
+        app:layout_constraintVertical_bias="0.5" />
 
     <Button
         android:id="@+id/buttonSignIn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="84dp"
-        android:layout_marginRight="84dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
         android:background="#434345"
         android:fontFamily="@font/spacegrotesk_semibold"
         android:text="Log In"
         android:textAllCaps="false"
         android:textColor="#ECECEC"
         android:textSize="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSearch"
-        app:layout_constraintVertical_bias="0.283" />
+        app:layout_constraintBottom_toBottomOf="@+id/buttonSignUp"
+        app:layout_constraintStart_toEndOf="@+id/buttonSignUp"
+        app:layout_constraintTop_toTopOf="@+id/buttonSignUp" />
 
     <TextView
         android:id="@+id/helpScr"

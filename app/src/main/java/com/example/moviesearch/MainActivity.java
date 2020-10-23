@@ -59,13 +59,13 @@ public class MainActivity extends AppCompatActivity {
         // gets the logo image
         ImageView logo = findViewById(R.id.logo_image);
 
-        //gets the buttons and edit texts
-       btnSignUp = findViewById(R.id.buttonSignUp);
-       btnSignIn = findViewById(R.id.buttonSignIn);
-       btnSearch = findViewById(R.id.buttonSearch);
-       btnLogOut = findViewById(R.id.buttonLogOut);
-       editTextquery = findViewById(R.id.queryText);
-       helpText=findViewById(R.id.helpScr);
+        //gets the buttons and edit text views
+        btnSignUp = findViewById(R.id.buttonSignUp);
+        btnSignIn = findViewById(R.id.buttonSignIn);
+        btnSearch = findViewById(R.id.buttonSearch);
+        btnLogOut = findViewById(R.id.buttonLogOut);
+        editTextquery = findViewById(R.id.queryText);
+        helpText=findViewById(R.id.helpScr);
 
         // sets the image for the logo from the assets.
         try{
@@ -165,7 +165,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean findStringSimilarity(String name, String movieName) {
-        //Log.d("Query: ", editTextquery.getText().toString().toLowerCase());
         // if the movie name is longer than 0, ie. it actually got put in, then
         // perform the query to find string similarity. else, consider them similar.
         if (movieName.length() > 0) {
@@ -186,8 +185,10 @@ public class MainActivity extends AppCompatActivity {
      */
     public void loadFromJSONFile(String file, String movieName, int searchYearQuant, int searchYear) {
 
+        // initialises both the json stream and a new, empty binary tree
         String json;
         tree = new EmptyBinaryTree();
+
         try {
             InputStream is = getAssets().open(file);
             int size = is.available();
@@ -198,10 +199,13 @@ public class MainActivity extends AppCompatActivity {
             json = new String(buffer, "UTF-8");
             JSONArray jsonArray = new JSONArray(json);
 
+            // for each item in the jsonarray, retrieves the movie information.
             for (int i = 0; i < jsonArray.length(); i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String name = jsonObject.getString("name");
 
+                // retrieves all the information from the current json dictionary in order to create
+                // a new movie object
                 String ID = Soundex.encode(name);
                 String genre = jsonObject.getString("genre");
                 int year = Integer.parseInt(jsonObject.getString("year"));
@@ -215,40 +219,38 @@ public class MainActivity extends AppCompatActivity {
                 int price = Integer.parseInt(jsonObject.getString("price"));
                 ID = ID + year + genre;
 
+                // creates the new movie object
                 Movie m = new Movie(ID, country, director, genre, name, rating, runtime, score, star, writer, year, price);
-                //Added to the array list if first character matches
-                //ID is computed using Soundex algorithm and oncatenated with year and genre
 
-                //Create an instance of empty binary tree which will be later used to build a tree on which
-                //searching is going to be performed
+                // Added to the array list if first character matches
+                // ID is computed using Soundex algorithm and oncatenated with year and genre
+
+                // Create an instance of empty binary tree which will be later used to build a tree on which
+                // searching is going to be performed
 
                 if(findStringSimilarity(name, movieName)){
-
-                    if(searchYearQuant == 62){
+                    // depending on the quantifier, inserts movies into the tree based on their
+                    // release year.
+                    if (searchYearQuant == 62) {
                         if (m.getYear() > searchYear) {
                             tree = tree.insert(m);
                             count++;
                         }
                     }
-                    else if (searchYearQuant == 60){
+                    else if (searchYearQuant == 60) {
                         if (m.getYear() < searchYear) {
                             tree = tree.insert(m);
                             count++;
                         }
                     }
-                    else if(searchYearQuant == 61){
+                    else if (searchYearQuant == 61) {
                         if (m.getYear() == searchYear) {
                             tree = tree.insert(m);
                             count++;
                         }
                     }
-
-                    //movies.add(new Movie(ID, country, director, genre, name, rating, runtime, score, star, writer, year, price));
-                    //movies.add(new Movie(ID, name, genre, year));
                 }
             }
-            //Log.d("Added activity", "Movies added.");
-
         }
         catch(Exception e)
         {
@@ -323,8 +325,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        // encodes a "searchID" using soundex to concatenate all the field values.
         searchID = Soundex.encode(searchMovieName) + searchYear + searchGenre;
 
+        // creates a new movie object based on the searchID and input variables
         searchMovie = new Movie(searchID, searchMovieName, searchGenre, searchYear);
 
         //Loading data from json
@@ -337,6 +341,7 @@ public class MainActivity extends AppCompatActivity {
         //which gives us the path. The ones in the path are considered as candidate results
         List<Movie> results = new ArrayList<Movie>();
 
+        // if the tree exists, then return the most relevant results.
         if (tree != null) {
             results = ((NonEmptyBinaryTree)tree).relavantResults();
         }

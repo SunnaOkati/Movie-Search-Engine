@@ -6,6 +6,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/* written by lawrence flint, u6961306
+
+   processes the queries sent over by the tokenizer and returns a set of
+   searchmatch and searchquant objects, depending on whether or not the
+   input values are "match" fields or "quantity" fields.
+
+*/
+
 public class Parser {
 
     // initialisation for the parser

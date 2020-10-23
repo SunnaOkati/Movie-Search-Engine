@@ -56,7 +56,6 @@ public class QueryResultsActivity extends AppCompatActivity {
     private String[] director;
     private Boolean[] favourites;
     private Drawable favRed;
-    //private String[] genre;
     private String[] rating;
 
     @Override
@@ -64,6 +63,7 @@ public class QueryResultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_query_results);
 
+        // gets the back button
         ImageButton backButton = findViewById(R.id.backButton);
 
         // attempts to set the back button image
@@ -82,6 +82,14 @@ public class QueryResultsActivity extends AppCompatActivity {
         {
             return;
         }
+
+        // sets up the back button to go back
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         lvSearchResults=findViewById(R.id.listviewQueryResults);
         favRed = getResources().getDrawable(R.drawable.ic_baseline_favorite_red_24);
@@ -135,6 +143,7 @@ public class QueryResultsActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"File not found",Toast.LENGTH_SHORT).show();
         }
 
+        // creates a unique adapter object for the movie list.
         MyAdapter myAdapter = new MyAdapter(this, title, year, director, rating, favourites);
 
         lvSearchResults.setAdapter(myAdapter);
@@ -144,29 +153,22 @@ public class QueryResultsActivity extends AppCompatActivity {
         lvSearchResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            for(int x=0;x<moviesList.size();x++){
+
+            // iterates over each movie in the movielist
+            for (int x = 0; x < moviesList.size(); x++) {
                 if(x==i){
                      Intent in=new Intent(getApplicationContext(),movieDes.class);
                      Bundle bun=new Bundle();
 
-                     in.putExtra("mTitle",title[x]);
-                     in.putExtra("mYear",year[x]);
-                     in.putExtra("mDirector",director[x]);
+                     // pushes the movie title, year and director to the intent.
+                     in.putExtra("mTitle", title[x]);
+                     in.putExtra("mYear", year[x]);
+                     in.putExtra("mDirector", director[x]);
                      in.putExtra("position",""+x+1);
-                     System.out.println(title[x]+year[x]);
-                     Log.d("view activity", "inside intent: " + title[x]+year[x]);
-                     startActivity(in);
 
+                     startActivity(in);
                 }
             }
-            }
-        });
-
-        // Help activity for help screen.
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
             }
         });
     }

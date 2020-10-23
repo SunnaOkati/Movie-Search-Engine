@@ -1,6 +1,13 @@
 package com.example.moviesearch;// written by Maitreyi Singh <u7075106>
 // reference : Lab and Lecture codes
 
+/* re-written by lawrence flint, u6961306
+
+    reduced the number of tokens in order to
+    make the system more scalable
+
+ */
+
 public class Token {
     public enum Type { MOVIE_FIELD, GENRE_FIELD, YEAR_FIELD, MATCH, QUANTITY, COL, GTEQ, GT, EQ, LTEQ, LT };
     //    GT = greater than, G = greater, EQ = equals, L = lesser, LT = lesser than)
