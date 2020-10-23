@@ -182,8 +182,6 @@ public class Tokenizer {
             // of the query. eliminates issues such as trying to look up sequels or anything with
             // some kind of tagline.
 
-            // TODO: comma delimiting is not idea, perhaps change to another approach later?
-
             // for each character, moves until the end of the currently assessed token
             // checks by determining "field end delimiting tokens" such as ">" or ":"
 

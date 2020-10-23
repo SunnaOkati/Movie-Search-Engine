@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private BinaryTree tree;
 
     int count = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         // gets the logo image
         ImageView logo = findViewById(R.id.logo_image);
 
-        //gets the buttons and edit text views
+        // gets the buttons and edit text views
         btnSignUp = findViewById(R.id.buttonSignUp);
         btnSignIn = findViewById(R.id.buttonSignIn);
         btnSearch = findViewById(R.id.buttonSearch);
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         helpText=findViewById(R.id.helpScr);
 
         // sets the image for the logo from the assets.
-        try{
+        try {
             // gets the input stream, loads as drawable
             InputStream inputStream = getAssets().open("logo_app_1.png");
             Drawable drawable = Drawable.createFromStream(inputStream, null);
@@ -78,11 +79,9 @@ public class MainActivity extends AppCompatActivity {
 
             inputStream.close();
         }
-        catch(IOException ex)
-        {
+        catch (IOException ex) {
             return;
         }
-
 
         // Help activity for help screen.
         helpText.setOnClickListener(new View.OnClickListener() {
@@ -95,9 +94,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //verifies if the user is already signed in
+        // verifies if the user is already signed in
         mFirebaseAuth = FirebaseAuth.getInstance();
-        if(mFirebaseAuth.getCurrentUser() != null){
+        if (mFirebaseAuth.getCurrentUser() != null) {
             btnSignIn.setVisibility(View.INVISIBLE);
             btnSignUp.setVisibility(View.INVISIBLE);
         }
@@ -105,35 +104,39 @@ public class MainActivity extends AppCompatActivity {
             btnLogOut.setVisibility(View.INVISIBLE);
         }
 
-        //Describes the action for search button click action
+        // describes the action for search button click action
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (editTextquery.getText().toString().isEmpty()) //if the query is left empty
+                if (editTextquery.getText().toString().isEmpty()) // if the query is left empty
                     Toast.makeText(getApplicationContext(),"Please enter a query", Toast.LENGTH_SHORT).show();
                 else {
-
+                    // creates a new tokenizer object to process the search query
                     tokenizer = new Tokenizer(editTextquery.getText().toString());
 
-                    //Parsing given tokens
+                    // creates a parser to process the tokens
                     parser = new Parser(tokenizer);
 
-                    //Extracting search terms
+                    // extracts a list of search terms using the parser
                     List<SearchTerm> searchTerms = parser.getSearchTerms();
 
-                    //Filter the data provided in "json" file wrt to query
-                    List<Movie> re;
-                    re=filterMovieData(searchTerms);
+                    // Filter the data provided in "json" file wrt to query
+                    List<Movie> movieList;
+
+                    // filters the movie data using the search terms
+                    movieList = filterMovieData(searchTerms);
+
+                    // creates a new intent and passes over the movie list
                     Intent intent = new Intent(getApplicationContext(), QueryResultsActivity.class);
-                    intent.putExtra("LIST",(Serializable) re);
+                    intent.putExtra("LIST",(Serializable) movieList);
                     intent.putExtra("USER", user);
                     startActivity(intent);
                 }
             }
         });
 
-        //Brings up the Sign up page
+        // brings up the sign up page
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -142,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Brings up the Sign In page
+        // brings up the login page
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,11 +154,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // logs our of the current user session
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // signs the user out using firebase
                 mFirebaseAuth.getInstance().signOut();
-                if (mFirebaseAuth.getCurrentUser() == null){
+
+                // if the current user is now null, set view visibility
+                if (mFirebaseAuth.getCurrentUser() == null) {
                     btnLogOut.setVisibility(View.INVISIBLE);
                     btnSignIn.setVisibility(View.VISIBLE);
                     btnSignUp.setVisibility(View.VISIBLE);
@@ -200,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
             JSONArray jsonArray = new JSONArray(json);
 
             // for each item in the jsonarray, retrieves the movie information.
-            for (int i = 0; i < jsonArray.length(); i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String name = jsonObject.getString("name");
 
@@ -228,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
                 // Create an instance of empty binary tree which will be later used to build a tree on which
                 // searching is going to be performed
 
-                if(findStringSimilarity(name, movieName)){
+                if (findStringSimilarity(name, movieName)) {
                     // depending on the quantifier, inserts movies into the tree based on their
                     // release year.
                     if (searchYearQuant == 62) {
@@ -252,12 +259,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-        catch(Exception e)
-        {
+        catch (Exception e) {
             Log.wtf("Load activity", "Error occured while reading file " + file);
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -273,6 +278,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private List filterMovieData(List<SearchTerm> searchTerms) {
 
+        // gets the filename for the dataset
         String fileName = "dataset.json";
 
         int searchYear;
@@ -282,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
         String searchID;
         Movie searchMovie;
 
-        // Creating an instance of movie with the user query
+        // creates an instance of movie with the user query
 
         // initialises the following values by creating generic searchterms
         searchYear = 0;
@@ -296,8 +302,6 @@ public class MainActivity extends AppCompatActivity {
             if (searchTerm != null) {
                 // gets the search term's search query type
                 String queryField = searchTerm.getSearchCategory();
-
-                System.out.println(queryField);
 
                 // based on the search category, changes the search year and other attributes
                 if (queryField.equals("\"movie\"")) {

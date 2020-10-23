@@ -32,7 +32,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         // attempts to set the back button image
         // sets the image for the logo from the assets.
-        try{
+        try {
             // gets the input stream, loads as drawable
             InputStream inputStream = getAssets().open("back_arrow.png");
             Drawable drawable = Drawable.createFromStream(inputStream, null);
@@ -42,8 +42,7 @@ public class QuestionActivity extends AppCompatActivity {
 
             inputStream.close();
         }
-        catch(IOException ex)
-        {
+        catch (IOException ex) {
             return;
         }
 
@@ -58,13 +57,14 @@ public class QuestionActivity extends AppCompatActivity {
         String textQuestion;
         String textAnswer = "";
 
+        // gets the passed over intent
         Intent intent =  getIntent();
         String question = intent.getStringExtra("Question");
         ArrayList<String> questionList = intent.getStringArrayListExtra("listOfQuestions");
 
+        // based on the extracted question, gets the answer text.
         textQuestion = question;
-        if(question.compareTo(questionList.get(0)) == 0)
-        {
+        if (question.compareTo(questionList.get(0)) == 0) {
             textAnswer = "To use the search, you can input your search as follows:\n\n"+
                     "Field : Query\n\n"+
                     "You can use as many fields in the query as you want, all you'll need to do" +
@@ -75,14 +75,14 @@ public class QuestionActivity extends AppCompatActivity {
                     "instead. Don't worry if you get mixed up, the system will automatically convert" +
                     "colons to quantifiers and vice-versa.";
         }
-        if(question.compareTo(questionList.get(1)) == 0)
-        {
+        else if (question.compareTo(questionList.get(1)) == 0) {
             textAnswer = "You can use the following fields to search for movies:\n\n" +
                     "genre - Searches by a movie's genre, uses colons.\n\n" +
                     "movie - Searches based on a movie's name, uses colons.\n\n" +
                     "year - Searches by a movie's release year, uses quantifiers.";
         }
 
+        // sets the question and answer text
         helpQuestion.setText(textQuestion);
         helpAnswer.setText(textAnswer);
     }

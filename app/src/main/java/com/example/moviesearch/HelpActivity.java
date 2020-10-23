@@ -37,7 +37,7 @@ public class HelpActivity extends AppCompatActivity {
 
         // attempts to set the back button image
         // sets the image for the logo from the assets.
-        try{
+        try {
             // gets the input stream, loads as drawable
             InputStream inputStream = getAssets().open("back_arrow.png");
             Drawable drawable = Drawable.createFromStream(inputStream, null);
@@ -47,8 +47,7 @@ public class HelpActivity extends AppCompatActivity {
 
             inputStream.close();
         }
-        catch(IOException ex)
-        {
+        catch (IOException ex) {
             return;
         }
 

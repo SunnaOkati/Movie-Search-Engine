@@ -78,8 +78,7 @@ public class QueryResultsActivity extends AppCompatActivity {
 
             inputStream.close();
         }
-        catch(IOException ex)
-        {
+        catch (IOException ex) {
             return;
         }
 
@@ -94,7 +93,6 @@ public class QueryResultsActivity extends AppCompatActivity {
         lvSearchResults=findViewById(R.id.listviewQueryResults);
         favRed = getResources().getDrawable(R.drawable.ic_baseline_favorite_red_24);
 
-        //ArrayList<Movie> moviesList = (ArrayList<Movie>) getIntent().getSerializableExtra("LIST");
         username = getIntent().getStringExtra("USER");
 
         final ArrayList<Movie> moviesList = (ArrayList<Movie>) getIntent().getSerializableExtra("LIST");
@@ -103,13 +101,16 @@ public class QueryResultsActivity extends AppCompatActivity {
 
         BufferedReader rawreader = null;
         String line;
+
+        // gets the details for the movie that is being currently assessed.
         title = new String[moviesList.size()];
         year =  new String[moviesList.size()];
         director =  new String[moviesList.size()];
         favourites = new Boolean[moviesList.size()];
         rating =  new String[moviesList.size()];
 
-        for(int i = 0 ; i < moviesList.size(); i ++){
+        // for each item in the movie list, adds to the string arrays.
+        for (int i = 0 ; i < moviesList.size(); i ++) {
             title[i] = moviesList.get(i).getName();
             year[i] = Integer.toString(moviesList.get(i).getYear());
             rating[i] = Double.toString(moviesList.get(i).getScore());
@@ -117,21 +118,19 @@ public class QueryResultsActivity extends AppCompatActivity {
             favourites[i] = false;
         }
 
-        try{ // note that Try-with-resources requires API level 19
+        try { // note that Try-with-resources requires API level 19
             rawreader = new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.data), "UTF-8")); //the encoding is optional String line;
             while ((line = rawreader.readLine()) != null) { //read each line until end of file
-                String[] tokens = line.split(","); //break each line into tokens (note that we are reading a csv file (comma-separated values)
-                System.out.println(tokens.length);
-                System.out.println(tokens[0]);
-                System.out.println(tokens[1]);
+                // break each line into tokens (note that we are reading a csv file (comma-separated values)
+                String[] tokens = line.split(",");
+
+                // if the username isn't null, check a user's favourites.
                 if (username != null) {
-                    if(tokens[0].contains(username)) {
-                        Log.d("Login Activity", "User Name: " + username + " file Name: " + tokens[0]);
+                    if (tokens[0].contains(username)) {
                         for (int i = 1; i < tokens.length; i++) {
                             for (int j = 0 ; j<title.length; j++){
-                                if(tokens[i].equals(title[j])) {
+                                if (tokens[i].equals(title[j])) {
                                     favourites[j] = true;
-                                    Log.d("Favourite activity", "Favourite: " + title[j]);
                                 }
                             }
                         }
