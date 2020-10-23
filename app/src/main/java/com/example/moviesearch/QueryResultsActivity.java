@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,17 +32,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;*/
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import org.w3c.dom.Text;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.EventListener;
 
 public class QueryResultsActivity extends AppCompatActivity {
 
@@ -151,18 +143,19 @@ public class QueryResultsActivity extends AppCompatActivity {
         //Creating a on click listener for list view
         lvSearchResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
 
             // iterates over each movie in the movielist
             for (int x = 0; x < moviesList.size(); x++) {
-                if(x==i){
-                     Intent in=new Intent(getApplicationContext(),movieDes.class);
-                     Bundle bun=new Bundle();
+                if (x == i) {
+                     Intent in = new Intent(getApplicationContext(), MovieDes.class);
+                     Bundle bun = new Bundle();
 
                      // pushes the movie title, year and director to the intent.
                      in.putExtra("mTitle", title[x]);
                      in.putExtra("mYear", year[x]);
                      in.putExtra("mDirector", director[x]);
+                     in.putExtra("mRating", rating[x]);
                      in.putExtra("position",""+x+1);
 
                      startActivity(in);

@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/launch_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".movieDes"
+        <activity android:name=".MovieDes"
             android:parentActivityName=".QueryResultsActivity"></activity>
         <activity android:name=".QuestionActivity" />
         <activity android:name=".HelpActivity" />
