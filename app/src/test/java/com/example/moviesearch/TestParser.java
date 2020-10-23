@@ -74,7 +74,7 @@ public class TestParser {
         List<SearchTerm> searchTerms = parser.getSearchTerms();
 
         // checks whether the first search term is a valid search term
-        SearchQuant movieMatch = new SearchQuant(
+        SearchQuant yearQuant = new SearchQuant(
                 "\"year\"",
                 ">=",
                 1964
@@ -82,7 +82,7 @@ public class TestParser {
 
         assertEquals(
                 "Invalid result for search term. Expected a match term.",
-                movieMatch.debugShow(),
+                yearQuant.debugShow(),
                 searchTerms.get(0).debugShow()
         );
     }
@@ -95,22 +95,18 @@ public class TestParser {
         // the list of search terms returned from getSearchTerms
         List<SearchTerm> searchTerms = parser.getSearchTerms();
 
-        // checks whether the first search term is null
-        assertNull(
-                "Invalid result for search term. Expected null.",
-                searchTerms.get(0)
-        );
+        System.out.println(searchTerms.get(0).debugShow());
 
-        // checks whether the second search term is a valid search term
+        // checks the validity of the search term
         SearchMatch movieMatch = new SearchMatch(
                 "\"movie\"",
-                "happy sunrise"
+                "\"movie\" : happy sunrise"
         );
 
         assertEquals(
                 "Invalid result for search term. Expected a match term.",
                 movieMatch.debugShow(),
-                searchTerms.get(1).debugShow()
+                searchTerms.get(0).debugShow()
         );
     }
 
@@ -122,28 +118,23 @@ public class TestParser {
         // the list of search terms returned from getSearchTerms
         List<SearchTerm> searchTerms = parser.getSearchTerms();
 
-        // checks whether the first search term is null
-        assertNull(
-                "Invalid result for search term. Expected null.",
-                searchTerms.get(0)
-        );
-
         // checks whether the second search term is a valid search term
-        SearchMatch movieMatch = new SearchMatch(
-                "\"movie\"",
-                "lucky"
+        SearchQuant yearQuant = new SearchQuant(
+                "\"year\"",
+                "<",
+                0
         );
 
         assertEquals(
-                "Invalid result for search term. Expected a match term.",
-                movieMatch.debugShow(),
-                searchTerms.get(1).debugShow()
+                "Invalid result for search term. Expected a quant term.",
+                yearQuant.debugShow(),
+                searchTerms.get(0).debugShow()
         );
     }
 
     @Test(timeout=1000)
     public void testIncompleteAfterMatch() {
-        tokenizer = new Tokenizer("\"movie\" : lucky \"movie\" : ");
+        tokenizer = new Tokenizer("\"movie\" : lucky, \"movie\" : ");
         parser = new Parser(tokenizer);
 
         // the list of search terms returned from getSearchTerms
@@ -170,7 +161,7 @@ public class TestParser {
 
     @Test(timeout=1000)
     public void testIncompleteAfterQuant() {
-        tokenizer = new Tokenizer("\"movie\" : unhappy sunset \"year\" <=");
+        tokenizer = new Tokenizer("\"movie\" : unhappy sunset ,\"year\" <=");
         parser = new Parser(tokenizer);
 
         // the list of search terms returned from getSearchTerms
