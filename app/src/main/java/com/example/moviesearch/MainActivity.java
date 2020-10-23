@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        //Help activity for help screen.
+        // Help activity for help screen.
         helpText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,12 +95,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         //verifies if the user is already signed in
         mFirebaseAuth = FirebaseAuth.getInstance();
         if(mFirebaseAuth.getCurrentUser() != null){
             btnSignIn.setVisibility(View.INVISIBLE);
             btnSignUp.setVisibility(View.INVISIBLE);
+        }
+        else {
+            btnLogOut.setVisibility(View.INVISIBLE);
         }
 
         //Describes the action for search button click action
