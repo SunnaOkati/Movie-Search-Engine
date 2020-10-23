@@ -3,10 +3,18 @@ package com.example.moviesearch;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Html;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class QuestionActivity extends AppCompatActivity {
     private TextView helpQuestion, helpAnswer;
@@ -23,11 +31,12 @@ public class QuestionActivity extends AppCompatActivity {
         String textQuestion;
         String textAnswer = "";
 
+        // gets the passed over intent
         Intent intent =  getIntent();
         String question = intent.getStringExtra("Question");
         ArrayList<String> questionList = intent.getStringArrayListExtra("listOfQuestions");
 
-        System.out.println("hi");
+        // based on the extracted question, gets the answer text.
         textQuestion = question;
         if(question.compareTo(questionList.get(0)) == 0)
         {

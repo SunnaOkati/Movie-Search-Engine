@@ -6,6 +6,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/* written by lawrence flint, u6961306
+
+   processes the queries sent over by the tokenizer and returns a set of
+   searchmatch and searchquant objects, depending on whether or not the
+   input values are "match" fields or "quantity" fields.
+
+*/
+
 public class Parser {
 
     // initialisation for the parser
@@ -55,34 +63,32 @@ public class Parser {
             // moves on to the next token
             _tokenizer.next();
 
-            //TODO: Lawrence Sorry I had to comment these lines to get the code woking. Could you help us with explaining what these lines da
-//            if (_tokenizer.hasNext()) {
-//                // if the token type is not a colon, return null
-//                // TODO: refactor to make all COL_x types COL
-//                if (_tokenizer.current().type() != Token.Type.COL_MOVIE) {
-//                    return null;
-//                }
-//            }
-//            else {
-//                return null;
-//            }
+            if (_tokenizer.hasNext()) {
+                // if the token type is not a colon, return null
+                if (_tokenizer.current().type() != Token.Type.COL) {
+                    return null;
+                }
+            }
+            else {
+                return null;
+            }
 
             // gets the next token
             _tokenizer.next();
 
-            //TODO Sorry I had to comment these lines to get the code woking. Could you help us with explaining what these lines da
-//            // checks again, given that no extra logic to account for the colon
-//            // token is required.
-//            if (_tokenizer.hasNext()) {
-//                // if the next token type is not a MATCH value, then return null
-//                // as the input is invalid.
-//                if (_tokenizer.current().type() != Token.Type.MOVIE_NAME) {
-//                    return null;
-//                }
-//            }
-//            else {
-//                return null;
-//            }
+            // checks again, given that no extra logic to account for the colon
+            // token is required.
+            if (_tokenizer.hasNext()) {
+                // if the next token type is not a MATCH value, then return null
+                // as the input is invalid.
+                if (_tokenizer.current().type() != Token.Type.MATCH) {
+                    return null;
+                }
+            }
+            else {
+                return null;
+            }
+
             // gets the current token
             String searchQuery = _tokenizer.current().token();
 
@@ -95,6 +101,7 @@ public class Parser {
             // case where token assesses against a quantity
             // sets the current type
             String searchCategory = _tokenizer.current().token();
+            int quantity;
 
             // gets the next token
             _tokenizer.next();
@@ -116,29 +123,25 @@ public class Parser {
             // gets the next token
             _tokenizer.next();
 
-            // checks if there is a valid token next in the sequence
+            // checks if the end of the query has been reached.
             if (_tokenizer.hasNext()) {
+                // gets the quantity based on the current token, this will have already
+                // been processed by the tokenizer so it should already be a numerical value
+                if (_tokenizer.current().token().equals("")) {
+                    quantity = 0;
+                }
+                else {
+                    quantity = Integer.parseInt(_tokenizer.current().token());
+                }
 
-                // checks if the token can actually be converted into an integer, if it cannot -
-                // then the system returns null.
-                try {
-                    Integer.parseInt(_tokenizer.current().token());
-                }
-                catch( Exception e ) {
-                    return null;
-                }
+                // moves on to the next token
+                _tokenizer.next();
+
+                return new SearchQuant(searchCategory, quantifierType, quantity);
             }
             else {
                 return null;
             }
-
-            /* gets the quantity based on the current token */
-            int quantity = Integer.parseInt(_tokenizer.current().token());
-
-            // moves on to the next token
-            _tokenizer.next();
-
-            return new SearchQuant(searchCategory, quantifierType, quantity);
         }
 
         return null;
@@ -153,7 +156,7 @@ public class Parser {
         while (_tokenizer.hasNext()) {
             // gets a new search term
             SearchTerm searchTerm = parseSearch();
-            Log.d("Parsing activity", "Debug: " + searchTerm.debugShow());
+//            Log.d("Parsing activity", "Debug: " + searchTerm.debugShow());
             // adds to the search terms list
             searchTerms.add(searchTerm);
         }

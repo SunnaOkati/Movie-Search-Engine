@@ -17,17 +17,17 @@ public class SearchQuant extends SearchTerm {
         this.quantity = quantity;
     }
 
-    @Override
-    public List<Movie> search(List<Movie> movieList) {
-        return movieList;
-    }
-
     public String getSearchCategory() {
         return searchCategory;
     }
 
     public void setSearchCategory(String searchCategory) {
         this.searchCategory = searchCategory;
+    }
+
+    @Override
+    public List<Movie> search(List<Movie> movieList) {
+        return movieList;
     }
 
     public String getQuantifier() {

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#37383A"
-    tools:context=".MovieDes">
+    tools:context=".HelpActivity"
+    android:background="#37383A">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -20,7 +20,7 @@
             android:fontFamily="@font/spacegrotesk_medium"
             android:gravity="center"
             android:padding="12dp"
-            android:text="Log In"
+            android:text="FAQ"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -41,63 +41,38 @@
             app:srcCompat="@drawable/abc_vector_test" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <View
-        android:id="@+id/view"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="match_parent">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text"
         android:layout_marginTop="20dp"
-        android:background="#444"
-        app:layout_constraintTop_toBottomOf="@+id/movReviewScore" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text" />
 
     <TextView
-        android:id="@+id/movTitle"
+        android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
         android:fontFamily="@font/spacegrotesk_bold"
-        android:text="Title"
+        android:gravity="center"
+        android:text="Frequently Asked Questions"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#FFFFFF"
-        android:textSize="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
-    <TextView
-        android:id="@+id/movReviewScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/spacegrotesk_bold"
-        android:text="Title"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="@+id/movTitle"
-        app:layout_constraintTop_toBottomOf="@+id/movTitle" />
-
-    <TextView
-        android:id="@+id/movYear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/spacegrotesk_regular"
-        android:text="Year"
-        android:textColor="#E0E0E0"
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="@+id/movTitle"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
-
-    <TextView
-        android:id="@+id/movDirector"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/spacegrotesk_regular"
-        android:text="Director"
-        android:textColor="#E0E0E0"
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="@+id/movYear"
-        app:layout_constraintTop_toBottomOf="@+id/movYear" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

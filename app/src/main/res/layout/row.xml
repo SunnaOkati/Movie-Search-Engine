@@ -1,48 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
-    <ImageView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:src="@mipmap/ic_launcher"
-        android:id="@+id/image"
-        ></ImageView>
+    android:background="#37383A"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:descendantFocusability="blocksDescendants">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:focusableInTouchMode="false">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text = "Movie Title"
-        android:textColor="#000"
-        android:textStyle="bold"
-        android:layout_margin="5dp"
-        android:textSize="15sp"
-        android:id="@+id/textViewMovieTitle"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text = "Year of release"
-        android:textColor="#000"
-        android:layout_margin="5dp"
-        android:textSize="10sp"
-        android:id="@+id/textViewYear"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text = "Directed By"
-        android:textColor="#000"
-        android:layout_margin="5dp"
-        android:textSize="10sp"
-        android:id="@+id/textViewDirector"
-        />
-    </LinearLayout>
+        <Button
+            android:id="@+id/buttonFavourite"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="top|left"
+            android:background="@drawable/ic_baseline_favorite_grey_24"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewRating"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spacegrotesk_medium"
+            android:text="9.0 Average Rating"
+            android:textColor="#FFF"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="@+id/textViewMovieTitle"
+            app:layout_constraintTop_toBottomOf="@+id/textViewMovieTitle" />
+
+        <TextView
+            android:id="@+id/textViewMovieTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:fontFamily="@font/spacegrotesk_bold"
+            android:text="Movie Title"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewYear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:fontFamily="@font/spacegrotesk_light"
+            android:text="Year of release"
+            android:textColor="#FFF"
+            android:textSize="12dp"
+            app:layout_constraintStart_toStartOf="@+id/textViewRating"
+            app:layout_constraintTop_toBottomOf="@id/textViewRating" />
+
+        <TextView
+            android:id="@+id/textViewDirector"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:fontFamily="@font/spacegrotesk_light"
+            android:paddingLeft="32dp"
+            android:text="Directed By"
+            android:textColor="#FFF"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewYear"
+            app:layout_constraintEnd_toEndOf="@+id/textViewMovieTitle"
+            app:layout_constraintStart_toEndOf="@+id/textViewYear"
+            app:layout_constraintTop_toTopOf="@+id/textViewYear" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--    <ImageView-->
+    <!--        android:layout_width="75dp"-->
+    <!--        android:layout_height="75dp"-->
+    <!--        android:src="@mipmap/ic_launcher"-->
+    <!--        android:id="@+id/image"-->
+    <!--        ></ImageView>-->
 </LinearLayout>

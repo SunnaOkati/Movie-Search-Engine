@@ -8,6 +8,7 @@ import java.util.List;
 public class SearchMatch extends SearchTerm {
     private String searchCategory;
     private String searchQuery;
+
     @Override
     public List<Movie> search(List<Movie> movieList) {
         return movieList;
@@ -34,6 +35,7 @@ public class SearchMatch extends SearchTerm {
     public void setSearchQuery(String searchQuery) {
         this.searchQuery = searchQuery;
     }
+
     @Override
     public String debugShow() {
         return "CATEGORY: " + this.searchCategory + " QUERY: " + this.searchQuery;

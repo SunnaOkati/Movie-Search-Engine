@@ -6,4 +6,6 @@
     <color name="darkPuple">#2D0B33</color>
     <color name="Yellow">#FFF280</color>
     <color name="lightGreen">#C3FF80</color>
+    <color name="actionBarBack">#434345</color>
+    <color name="actionBarText">#FFFFFF</color>
 </resources>
