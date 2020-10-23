@@ -232,8 +232,10 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     else if(searchYearQuant == 61){
-                        tree = tree.insert(m);
-                        count++;
+                        if (m.getYear() == searchYear) {
+                            tree = tree.insert(m);
+                            count++;
+                        }
                     }
 
                     //movies.add(new Movie(ID, country, director, genre, name, rating, runtime, score, star, writer, year, price));
@@ -331,9 +333,12 @@ public class MainActivity extends AppCompatActivity {
 
         //Tree is traversed from bottom to top (i.e leaf to root)
         //which gives us the path. The ones in the path are considered as candidate results
-        List<Movie> results;
-        results = ((NonEmptyBinaryTree)tree).relavantResults();
-        System.out.println("Results: " + results.toString());
+        List<Movie> results = new ArrayList<Movie>();
+
+        if (tree != null) {
+            results = ((NonEmptyBinaryTree)tree).relavantResults();
+        }
+
         return results;
     }
 

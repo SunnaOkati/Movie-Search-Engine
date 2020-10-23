@@ -30,7 +30,6 @@ public class QuestionActivity extends AppCompatActivity {
         String question = intent.getStringExtra("Question");
         ArrayList<String> questionList = intent.getStringArrayListExtra("listOfQuestions");
 
-        System.out.println("hi");
         textQuestion = question;
         if(question.compareTo(questionList.get(0)) == 0)
         {
