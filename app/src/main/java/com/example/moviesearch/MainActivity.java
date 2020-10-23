@@ -32,9 +32,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private String user;
     private Button btnSignIn;
     private Button btnSignUp;
     private Button btnSearch;
+    private Button btnLogOut;
     private EditText editTextquery;
     private List<Movie> movies = new ArrayList<>();
     private FirebaseAuth mFirebaseAuth;
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private static Tokenizer tokenizer;
     private static Parser parser;
     private TextView helpText;
+    private BinaryTree tree;
 
     int count = 0;
     @Override
@@ -56,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
        btnSignUp = findViewById(R.id.buttonSignUp);
        btnSignIn = findViewById(R.id.buttonSignIn);
        btnSearch = findViewById(R.id.buttonSearch);
+       btnLogOut = findViewById(R.id.buttonLogOut);
        editTextquery = findViewById(R.id.queryText);
        helpText=findViewById(R.id.helpScr);
 
@@ -82,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent inHelper = new Intent(MainActivity.this, HelpActivity.class);
-
                 startActivity(inHelper);
 
             }
@@ -91,17 +95,10 @@ public class MainActivity extends AppCompatActivity {
 
         //verifies if the user is already signed in
         mFirebaseAuth = FirebaseAuth.getInstance();
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if(mFirebaseUser!=null){
-                    Toast.makeText(MainActivity.this, "You are logged in" + mFirebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
-                    btnSignIn.setVisibility(View.INVISIBLE);
-                    btnSignUp.setVisibility(View.INVISIBLE);
-                }
-            }
-        };
+        if(mFirebaseAuth.getCurrentUser() != null){
+            btnSignIn.setVisibility(View.INVISIBLE);
+            btnSignUp.setVisibility(View.INVISIBLE);
+        }
 
         //Describes the action for search button click action
         btnSearch.setOnClickListener(new View.OnClickListener() {
@@ -130,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
                     re=filterMovieData(searchTerms);
                     Intent intent = new Intent(getApplicationContext(), QueryResultsActivity.class);
                     intent.putExtra("LIST",(Serializable) re);
+                    intent.putExtra("USER", user);
                     startActivity(intent);
                     }
             }
@@ -148,10 +146,22 @@ public class MainActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                Intent intSignIn = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intSignIn);
             }
         });
 
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mFirebaseAuth.getInstance().signOut();
+                if (mFirebaseAuth.getCurrentUser() == null){
+                    btnLogOut.setVisibility(View.INVISIBLE);
+                    btnSignIn.setVisibility(View.VISIBLE);
+                    btnSignUp.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     private boolean findStringSimilarity(String name, String movieName) {
@@ -169,10 +179,10 @@ public class MainActivity extends AppCompatActivity {
      * is same as the first letter of movie name in user query
      * @param file The file to load from. This is guaranteed to exist.
      */
-    public void loadFromJSONFile(String file, String movieName) {
-
+    public void loadFromJSONFile(String file, String movieName, int searchYearQuant, int searchYear) {
 
         String json;
+        tree = new EmptyBinaryTree();
         try {
             InputStream is = getAssets().open(file);
             int size = is.available();
@@ -187,23 +197,46 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String name = jsonObject.getString("name");
 
+                String ID = Soundex.encode(name);
+                String genre = jsonObject.getString("genre");
+                int year = Integer.parseInt(jsonObject.getString("year"));
+                String country = jsonObject.getString("country");
+                String director = jsonObject.getString("director");
+                String rating = jsonObject.getString("rating");
+                Double score = Double.parseDouble(jsonObject.getString("score"));
+                String star = jsonObject.getString("star");
+                String writer = jsonObject.getString("writer");
+                int runtime = Integer.parseInt(jsonObject.getString("runtime"));
+                int price = Integer.parseInt(jsonObject.getString("price"));
+                ID = ID + year + genre;
+
+                Movie m = new Movie(ID, country, director, genre, name, rating, runtime, score, star, writer, year, price);
                 //Added to the array list if first character matches
                 //ID is computed using Soundex algorithm and oncatenated with year and genre
-                if(findStringSimilarity(name, movieName)){
-                    String ID = Soundex.encode(name);
-                    String genre = jsonObject.getString("genre");
-                    int year = Integer.parseInt(jsonObject.getString("year"));
-                    String country = jsonObject.getString("country");
-                    String director = jsonObject.getString("director");
-                    String rating = jsonObject.getString("rating");
-                    Double score = Double.parseDouble(jsonObject.getString("score"));
-                    String star = jsonObject.getString("star");
-                    String writer = jsonObject.getString("writer");
-                    int runtime = Integer.parseInt(jsonObject.getString("runtime"));
-                    int price = Integer.parseInt(jsonObject.getString("price"));
-                    ID = ID + year + genre;
 
-                    movies.add(new Movie(ID, country, director, genre, name, rating, runtime, score, star, writer, year, price));
+                //Create an instance of empty binary tree which will be later used to build a tree on which
+                //searching is going to be performed
+
+                if(findStringSimilarity(name, movieName)){
+
+                    if(searchYearQuant == 62){
+                        if (m.getYear() > searchYear) {
+                            tree = tree.insert(m);
+                            count++;
+                        }
+                    }
+                    else if (searchYearQuant == 60){
+                        if (m.getYear() < searchYear) {
+                            tree = tree.insert(m);
+                            count++;
+                        }
+                    }
+                    else if(searchYearQuant == 61){
+                        tree = tree.insert(m);
+                        count++;
+                    }
+
+                    //movies.add(new Movie(ID, country, director, genre, name, rating, runtime, score, star, writer, year, price));
                     //movies.add(new Movie(ID, name, genre, year));
                 }
             }
@@ -233,44 +266,28 @@ public class MainActivity extends AppCompatActivity {
 
         String fileName = "dataset.json";
 
+        int searchYear;
+        int searchYearQuant;
+        String searchGenre;
+        String searchMovieName;
+        String searchID;
+        Movie searchMovie;
+
         //Creating an instance of movie with the user query
-        int searchYear = ((SearchQuant)searchTerms.get(1)).getQuantity();
-        int searchYearQuant = (int)((SearchQuant)searchTerms.get(1)).getQuantifier().charAt(0);
-        String searchGenre = ((SearchMatch)searchTerms.get(2)).getSearchQuery();
-        String searchMovieName = ((SearchMatch)searchTerms.get(0)).getSearchQuery();
-        String searchID = Soundex.encode(searchMovieName) +  searchYear +searchGenre;
-        Movie searchMovie = new Movie(searchID, searchMovieName, searchGenre, searchYear);
+        searchYear = ((SearchQuant) searchTerms.get(1)).getQuantity();
+        searchYearQuant = (int) ((SearchQuant) searchTerms.get(1)).getQuantifier().charAt(0);
+        searchGenre = ((SearchMatch) searchTerms.get(2)).getSearchQuery();
+        searchMovieName = ((SearchMatch) searchTerms.get(0)).getSearchQuery();
+        searchID = Soundex.encode(searchMovieName) + searchYear + searchGenre;
+
+
+
+        searchMovie = new Movie(searchID, searchMovieName, searchGenre, searchYear);
+
         //Log.d("Display activity", "Movie searched: " + searchMovie + " Quantifier: " + searchYearQuant);
 
-        //Create an instance of empty binary tree which will be later used to build a tree on which
-        //searching is going to be performed
-        BinaryTree tree = new EmptyBinaryTree();
-
         //Loading data from json
-        loadFromJSONFile(fileName, searchMovieName);
-
-        //ascii values '<' :60, '=' :61, '>' :62
-        //For each movie in the list, if the conditions are satisfied then they are inserted
-        //The conditions are based on year constraints
-        for (Movie m: movies){
-            if(searchYearQuant == 62){
-                if (m.getYear() > searchYear) {
-                    tree = tree.insert(m);
-                    count++;
-                }
-            }
-            else if (searchYearQuant == 60){
-                if (m.getYear() < searchYear) {
-                    tree = tree.insert(m);
-                    count++;
-                }
-            }
-            else if(searchYearQuant == 60){
-                Log.d("Error activity" , "Wrong entry");
-                tree = tree.insert(m);
-                count++;
-            }
-        }
+        loadFromJSONFile(fileName, searchMovieName, searchYearQuant, searchYear);
         //Log.d("Insert activity", "Nodes inserted: " + tree.size() + " Height of the tree: " + tree.height());
 
         //The leaf node that is most relavant to query is found
@@ -284,9 +301,4 @@ public class MainActivity extends AppCompatActivity {
         return  results;
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
-    }
 }
