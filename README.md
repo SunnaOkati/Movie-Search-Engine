@@ -11,14 +11,12 @@ The data is stored as Binary Search Tree with a unqiue value generated using Sou
 
 Also, we built a sign in and sign up page with credentials being stored and authorised by firebase. All pages inside the app were built for Portrait and Landscape views.
 
-Parsing
-Encoding using SoundX
-Tree Search Engine - Binary Search tree
-Pre-processing data
-Static Data
-IMBD Data
-Filtered Columns to needs
-Framed own Grammar to meet 
-Implemented own compiler
-Built for multiple screen resolutions - Portrait and Landscape
-Built Sign in and Sign Up Page
+Tasks:
+- Built a Parser
+- Built a binary Tree based Search Engine
+- Pre-processed the static IMBD data
+- Frammed our own grammer wrt to query language
+- Implemented a compiler
+- Made pages for both Landscape and Portrait viewa
+- Made Sign in and Sign Up Pages
+- Integrated Firebase to store credetials.
